@@ -68,7 +68,18 @@ let pageSize = 50;           // Registros por página
 
 ---
 
-## 4. Detección Inteligente de Marcas con Expresiones Regulares
+## 4. Regla de Negocio y UI: Nombres Visibles en Menús F1 y F2
+
+> [!IMPORTANT]
+> **REGLA OBLIGATORIA DEL PROYECTO**: En todos los selectores de categorías (**F1**) y subcategorías (**F2**), así como en la tabla de resultados y en los archivos CSV exportados, el **NOMBRE COMPLETO** debe ser visible siempre de forma prioritaria, acompañado de su código identificador y conteo de términos.
+> 
+> * **En F1:** `[Nombre Completo] ([Código F1]) — [N] términos` (ej. `Tecnología y Telefonía (F19) — 2,075 términos`).
+> * **En F2:** `[Nombre de Subcategoría] ([Código F2 si aplica]) — [N] términos` (ej. `Celulares y Smartphones (F1901) — 557 términos`, `Tenis y Zapatillas Deportivas — 1,582 términos`).
+> * **Prohibición estricta:** Queda estrictamente prohibido mostrar opciones con códigos huérfanos (como `F04 - F04`) o textos genéricos deshabilitados (como `Línea única` o `Depende de F1`). Si no hay código formal F2, se mapea la línea de producto mediante `SUBCAT_LABELS`.
+
+---
+
+## 5. Detección Inteligente de Marcas con Expresiones Regulares
 
 Para permitir a los gerentes comerciales filtrar con un solo clic por sus marcas clave sin requerir que la base de datos tenga un campo `marca`, el dashboard implementa un motor de coincidencia basado en regex (`POPULAR_BRANDS`):
 

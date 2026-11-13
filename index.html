@@ -188,7 +188,7 @@
     .funnel-row {
       padding: 18px 24px;
       display: grid;
-      grid-template-columns: 1.1fr 1fr 1fr 1.4fr auto;
+      grid-template-columns: 1.35fr 1.35fr 1.1fr 1.4fr auto;
       gap: 16px;
       align-items: flex-end;
     }
@@ -951,15 +951,15 @@
           </div>
         </div>
 
-        <!-- PASO 2: SUBCATEGORÍA F2 (CONTEXTUAL A F1) -->
+        <!-- PASO 2: SUBCATEGORÍA F2 -->
         <div class="input-field-group">
           <label class="field-label">
             <span><span class="step-num">2.</span> Subcategoría F2</span>
-            <span id="f2CountBadge" style="font-weight:500;">Depende de F1</span>
+            <span id="f2CountBadge" style="font-weight:600; color:var(--text-muted);">Sublíneas</span>
           </label>
           <div class="custom-select-wrap">
-            <select id="selectF2" class="field-select" disabled>
-              <option value="">Selecciona primero una F1</option>
+            <select id="selectF2" class="field-select">
+              <option value="">Todas las subcategorías F2</option>
             </select>
             <span class="select-arrow">▼</span>
           </div>
@@ -1134,28 +1134,83 @@
     const F1_LABELS = {
       'F00': 'Eventos (Black Friday)',
       'F01': 'Almacenamiento y Organización',
-      'F02': 'Jardinería',
-      'F04': 'Limpieza',
+      'F02': 'Jardinería y Macetas',
+      'F04': 'Limpieza y Lavaplatos',
       'F05': 'Artesanías, Manualidades y Costura',
       'F06': 'Cuidado de Mascotas',
+      'F08': 'Accesorios, Joyas y Gafas',
+      'F11': 'Alimentos y Bebidas',
       'F13': 'Deportes y Movilidad',
-      'F14': 'Electrodomésticos',
+      'F14': 'Electrodomésticos y Línea Blanca',
       'F18': 'Calzado y Zapatillas',
       'F19': 'Tecnología y Telefonía',
       'F35': 'Muebles y Decoración',
+      'F36': 'Camas y Colchones',
       'F43': 'Vestuario y Moda'
     };
 
     const F2_LABELS = {
       'F0001': 'Black Friday 2026',
+      'F0602': 'Alimento y Cuidado de Mascotas',
+      'F0801': 'Gafas de Sol',
+      'F0802': 'Joyas y Relojes',
+      'F0803': 'Bolsos, Maletas y Accesorios',
+      'F1104': 'Bebidas y Licores',
+      'F1301': 'Camping y Acampada',
       'F1901': 'Celulares y Smartphones',
       'F1902': 'Tablets',
       'F1903': 'Audio y Sonido',
       'F1904': 'Televisores y Smart TV',
       'F1905': 'Relojes Inteligentes',
-      'F1906': 'Drones',
-      'F0602': 'Cuidado de Mascotas'
+      'F1906': 'Drones y Cámaras'
     };
+
+    const SUBCAT_LABELS = {
+      'tenis y zapatillas': 'Tenis y Zapatillas Deportivas',
+      'calzado': 'Calzado Formal y Urbano',
+      'deporte bicicleta': 'Bicicletas y Ciclismo',
+      'Salud deportiva': 'Nutrición y Salud Deportiva',
+      'Equipamientos deportivos': 'Equipamiento Deportivo y Fitness',
+      'movilidad electricas': 'Movilidad Eléctrica (Scooters y Patinetas)',
+      'prendas deportivas': 'Ropa Deportiva',
+      'Prenda superior': 'Vestuario Superior (Camisas, Blusas, Chaquetas)',
+      'prendas inferior': 'Vestuario Inferior (Pantalones, Jeans, Shorts)',
+      'interior': 'Ropa Interior y Pijamas',
+      'F14 - Electrodomésticos': 'Electrodomésticos y Línea Blanca',
+      'F35 - Muebles': 'Muebles y Sillas',
+      'F36 - Camas y Colchones': 'Camas y Colchones',
+      'F04 - Limpieza': 'Limpieza y Grifería',
+      'F05 - Artesanías, Manualidades y Costura': 'Costura y Manualidades',
+      'F02 - Jardinería': 'Macetas y Jardinería',
+      'F01 - Almacenamiento': 'Cajas y Organizadores',
+      'F0602 - Cuidado de mascotas': 'Alimento y Cuidado de Mascotas',
+      'black friday': 'Black Friday 2026',
+      'celulares': 'Celulares y Smartphones',
+      'tablet': 'Tablets',
+      'audio y sonido': 'Audio y Sonido',
+      'televisores': 'Televisores y Smart TV',
+      'reloj inteligente': 'Relojes Inteligentes',
+      'drone': 'Drones y Cámaras'
+    };
+
+    function getF1Name(code) {
+      if (!code) return 'General';
+      if (F1_LABELS[code]) return F1_LABELS[code];
+      return code;
+    }
+
+    function getSubcategoryName(item) {
+      if (!item) return 'General';
+      if (item.f2_codigo && F2_LABELS[item.f2_codigo]) {
+        return F2_LABELS[item.f2_codigo];
+      }
+      if (item.carpeta_origen) {
+        if (SUBCAT_LABELS[item.carpeta_origen]) return SUBCAT_LABELS[item.carpeta_origen];
+        let clean = item.carpeta_origen.replace(/^F\d+\s*-\s*/i, '');
+        return clean.charAt(0).toUpperCase() + clean.slice(1);
+      }
+      return 'General';
+    }
 
     const POPULAR_BRANDS = [
       { id: 'samsung', label: 'Samsung', regex: /\bsamsung\b/i },
@@ -1264,6 +1319,7 @@
         }
         
         populateF1Selector();
+        updateF2Selector("");
         populateProductSelector();
         executeFiltering();
       } catch (e) {
@@ -1271,7 +1327,7 @@
       }
     }
 
-    // 1. POBLAR F1 (ORDEN ALFANUMÉRICO DE F00/F01 HACIA ABAJO)
+    // 1. POBLAR F1 (REGLA: EL NOMBRE COMPLETO DEBE SER SIEMPRE VISIBLE)
     function populateF1Selector() {
       const f1Counts = {};
       masterData.forEach(item => {
@@ -1290,56 +1346,70 @@
       sortedF1.forEach(f1 => {
         const opt = document.createElement('option');
         opt.value = f1;
-        const name = F1_LABELS[f1] || f1;
-        opt.innerText = `${f1} - ${name} (${f1Counts[f1].toLocaleString()} términos)`;
+        const name = getF1Name(f1);
+        // REGLA: Nombre completo visible primero con su código y conteo
+        opt.innerText = `${name} (${f1}) — ${f1Counts[f1].toLocaleString()} términos`;
+        if (selectedF1 === f1) opt.selected = true;
         f1Select.appendChild(opt);
       });
 
-      document.getElementById('f1CountBadge').innerText = `${Object.keys(f1Counts).length} Activas`;
+      document.getElementById('f1CountBadge').innerText = `${sortedF1.length} Activas`;
     }
 
-    // 2. POBLAR F2 (CONTEXTUAL SEGÚN F1)
+    // 2. POBLAR F2 (REGLA: EL NOMBRE DE LA SUBCATEGORÍA DEBE SER SIEMPRE VISIBLE)
     function updateF2Selector(f1Code) {
       const f2Select = document.getElementById('selectF2');
       const badge = document.getElementById('f2CountBadge');
 
-      if (!f1Code) {
-        f2Select.innerHTML = '<option value="">Selecciona primero una F1</option>';
-        f2Select.disabled = true;
-        badge.innerText = "Depende de F1";
-        selectedF2 = "";
-        return;
-      }
+      const itemsPool = f1Code 
+        ? masterData.filter(item => item.f1_codigo === f1Code)
+        : masterData;
 
-      const f2Counts = {};
-      masterData.forEach(item => {
-        if (item.f1_codigo === f1Code && item.f2_codigo) {
-          f2Counts[item.f2_codigo] = (f2Counts[item.f2_codigo] || 0) + 1;
+      // Agrupar subcategorías
+      const subcatMap = {};
+
+      itemsPool.forEach(item => {
+        const key = item.f2_codigo || item.carpeta_origen || 'General';
+        const label = getSubcategoryName(item);
+        const code = item.f2_codigo || '';
+
+        if (!subcatMap[key]) {
+          subcatMap[key] = {
+            key: key,
+            label: label,
+            code: code,
+            count: 0
+          };
         }
+        subcatMap[key].count++;
       });
 
-      const f2Keys = Object.keys(f2Counts);
-      f2Select.innerHTML = '<option value="">Todas las subcategorías F2</option>';
+      const subcatList = Object.values(subcatMap);
       f2Select.disabled = false;
 
-      if (f2Keys.length === 0) {
-        const opt = document.createElement('option');
-        opt.value = "";
-        opt.innerText = `Línea única (${F1_LABELS[f1Code] || f1Code})`;
-        f2Select.appendChild(opt);
-        badge.innerText = "Línea única";
+      const headerText = f1Code 
+        ? `Todas las subcategorías de ${getF1Name(f1Code)} (${itemsPool.length.toLocaleString()})`
+        : `Todas las subcategorías F2 (${itemsPool.length.toLocaleString()})`;
+
+      f2Select.innerHTML = `<option value="">${headerText}</option>`;
+
+      if (subcatList.length === 0) {
+        badge.innerText = "0 Sublíneas";
         return;
       }
 
-      f2Keys.sort((a, b) => f2Counts[b] - f2Counts[a]).forEach(f2 => {
+      // Ordenar por mayor volumen de términos
+      subcatList.sort((a, b) => b.count - a.count).forEach(sub => {
         const opt = document.createElement('option');
-        opt.value = f2;
-        const name = F2_LABELS[f2] || f2;
-        opt.innerText = `${f2} - ${name} (${f2Counts[f2].toLocaleString()})`;
+        opt.value = sub.key;
+        // REGLA: Nombre completo visible primero, con código si aplica
+        const codeText = sub.code ? ` (${sub.code})` : '';
+        opt.innerText = `${sub.label}${codeText} — ${sub.count.toLocaleString()} términos`;
+        if (selectedF2 === sub.key) opt.selected = true;
         f2Select.appendChild(opt);
       });
 
-      badge.innerText = `${f2Keys.length} Sublíneas`;
+      badge.innerText = `${subcatList.length} Sublíneas`;
     }
 
     // 3. POBLAR TIPO DE PRODUCTO (CONTEXTUALIZABLE)
@@ -1454,7 +1524,11 @@
     function executeFiltering() {
       currentFiltered = masterData.filter(item => {
         if (selectedF1 && item.f1_codigo !== selectedF1) return false;
-        if (selectedF2 && item.f2_codigo !== selectedF2) return false;
+        if (selectedF2) {
+          const matchF2 = item.f2_codigo === selectedF2;
+          const matchCarpeta = item.carpeta_origen === selectedF2;
+          if (!matchF2 && !matchCarpeta) return false;
+        }
         if (selectedProduct && item.carpeta_origen !== selectedProduct) return false;
         
         if (selectedBrand) {
@@ -1502,7 +1576,11 @@
       // Conteos de pestañas basados en los filtros de categoría activos
       const contextBase = masterData.filter(item => {
         if (selectedF1 && item.f1_codigo !== selectedF1) return false;
-        if (selectedF2 && item.f2_codigo !== selectedF2) return false;
+        if (selectedF2) {
+          const matchF2 = item.f2_codigo === selectedF2;
+          const matchCarpeta = item.carpeta_origen === selectedF2;
+          if (!matchF2 && !matchCarpeta) return false;
+        }
         if (selectedProduct && item.carpeta_origen !== selectedProduct) return false;
         if (selectedBrand) {
           const brandObj = POPULAR_BRANDS.find(b => b.id === selectedBrand);
@@ -1549,9 +1627,8 @@
         const isB = item.is_breakout;
         const interestVal = item.search_interest || 0;
         const brand = detectBrand(item.query);
-        const f1Name = F1_LABELS[item.f1_codigo] || item.f1_codigo || '-';
-        const cleanProd = item.carpeta_origen ? (item.carpeta_origen.charAt(0).toUpperCase() + item.carpeta_origen.slice(1)) : 'General';
-        const f2Name = item.f2_codigo && F2_LABELS[item.f2_codigo] ? F2_LABELS[item.f2_codigo] : cleanProd;
+        const f1Name = getF1Name(item.f1_codigo);
+        const f2Name = getSubcategoryName(item);
         const rowNum = start + idx + 1;
         const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=CO&q=${encodeURIComponent(item.query)}`;
 
@@ -1718,8 +1795,8 @@
 
         dataset.forEach((q, idx) => {
           const brand = detectBrand(q.query) || 'Sin marca';
-          const f1Name = F1_LABELS[q.f1_codigo] || q.f1_codigo || '';
-          const f2Name = (q.f2_codigo && F2_LABELS[q.f2_codigo]) ? F2_LABELS[q.f2_codigo] : (q.carpeta_origen || '');
+          const f1Name = getF1Name(q.f1_codigo);
+          const f2Name = getSubcategoryName(q);
           const prod = q.carpeta_origen || '';
           const dinamica = q.is_breakout ? 'Breakout (+5000%)' : (q.increase_percent || (q.tipo_busqueda === 'top' ? 'Top Búsqueda' : 'Rising'));
           const trendsUrl = `https://trends.google.com/trends/explore?geo=CO&q=${encodeURIComponent(q.query || '')}`;
