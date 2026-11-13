@@ -1246,7 +1246,17 @@
           }
         }
 
-        masterData = all;
+        // Deduplicar por query+f1+carpeta, conservando el de mayor search_interest
+        const seen = new Map();
+        for (const item of all) {
+          const key = `${(item.query || '').trim().toLowerCase()}|${item.f1_codigo || ''}|${item.carpeta_origen || ''}`;
+          const prev = seen.get(key);
+          if (!prev || (item.search_interest || 0) > (prev.search_interest || 0)) {
+            seen.set(key, item);
+          }
+        }
+        masterData = Array.from(seen.values());
+
         document.getElementById('dbStatusLabel').innerText = `${masterData.length.toLocaleString()} términos activos`;
         const exportAllBtn = document.getElementById('btnExportAllCSV');
         if (exportAllBtn) {
