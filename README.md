@@ -69,7 +69,7 @@ El proyecto opera como una **Single Page Application (SPA) serverless y estátic
 * `increase_percent`: % de incremento reportado (ej. `+350%`).
 * `is_breakout`: Booleano (`true`/`false`) para términos con crecimiento explosivo (+5,000%).
 * `tipo_busqueda`: Clasificación entre búsquedas `'top'` (volumen) o `'rising'` (en ascenso).
-* `f1_codigo` / `f2_codigo`: Códigos de categoría y sublínea Falabella (`F00`, `F19`, `F18`, `F13`, `F43`, `F14`, etc.).
+* `f1_codigo` / `f2_codigo`: Códigos de categoría y sublínea Falabella (`F00`, `F01`, `F02`, `F04`, `F05`, `F06`, `F13`, `F14`, `F18`, `F19`, `F35`, `F43`).
 * `carpeta_origen` / `archivo_origen`: Producto de origen y trazabilidad de ingesta.
 
 *(Para ver el DDL SQL completo, consulta [docs/DATABASE.md](file:///Users/cesarandresjimenezarci/Documents/faltendencias/docs/DATABASE.md)).*

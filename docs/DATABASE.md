@@ -81,13 +81,17 @@ El sistema utiliza la jerarquía oficial de códigos comerciales:
 
 ### Nivel 1 (F1)
 * **F00:** Eventos y Campañas Especiales (Black Friday, Cyberlunes, Navidad)
-* **F19:** Tecnología, Telefonía y Electrónica
-* **F18:** Calzado y Zapatillas
-* **F13:** Deportes, Fitness y Movilidad
-* **F43:** Vestuario, Moda y Accesorios
-* **F14:** Electrodomésticos y Línea Blanca
-* **F35:** Muebles, Hogar y Decoración
+* **F01:** Almacenamiento y Organización
+* **F02:** Jardinería
+* **F04:** Limpieza
+* **F05:** Artesanías, Manualidades y Costura
 * **F06:** Mascotas y Cuidado Animal
+* **F13:** Deportes, Fitness y Movilidad
+* **F14:** Electrodomésticos y Línea Blanca
+* **F18:** Calzado y Zapatillas
+* **F19:** Tecnología, Telefonía y Electrónica
+* **F35:** Muebles, Hogar y Decoración
+* **F43:** Vestuario, Moda y Accesorios
 
 ### Nivel 2 (F2 Principales)
 * `F0001` → Black Friday 2026

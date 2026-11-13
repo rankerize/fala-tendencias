@@ -1084,13 +1084,17 @@
 
     const F1_LABELS = {
       'F00': 'Eventos (Black Friday)',
-      'F19': 'Tecnología y Telefonía',
-      'F18': 'Calzado y Zapatillas',
+      'F01': 'Almacenamiento y Organización',
+      'F02': 'Jardinería',
+      'F04': 'Limpieza',
+      'F05': 'Artesanías, Manualidades y Costura',
+      'F06': 'Cuidado de Mascotas',
       'F13': 'Deportes y Movilidad',
-      'F43': 'Vestuario y Moda',
       'F14': 'Electrodomésticos',
+      'F18': 'Calzado y Zapatillas',
+      'F19': 'Tecnología y Telefonía',
       'F35': 'Muebles y Decoración',
-      'F06': 'Cuidado de Mascotas'
+      'F43': 'Vestuario y Moda'
     };
 
     const F2_LABELS = {
@@ -1168,7 +1172,7 @@
       }
     }
 
-    // 1. POBLAR F1
+    // 1. POBLAR F1 (ORDEN ALFANUMÉRICO DE F00/F01 HACIA ABAJO)
     function populateF1Selector() {
       const f1Counts = {};
       masterData.forEach(item => {
@@ -1179,22 +1183,16 @@
       const f1Select = document.getElementById('selectF1');
       f1Select.innerHTML = `<option value="">Todas las categorías F1 (${masterData.length.toLocaleString()})</option>`;
 
-      if (f1Counts['F00']) {
-        const opt = document.createElement('option');
-        opt.value = 'F00';
-        opt.innerText = `F00 - ${F1_LABELS['F00']} (${f1Counts['F00'].toLocaleString()})`;
-        f1Select.appendChild(opt);
-      }
-
+      // Orden alfanumérico estricto de F00, F01 hacia abajo
       const sortedF1 = Object.keys(f1Counts)
-        .filter(k => k !== 'F00' && f1Counts[k] > 0)
-        .sort((a, b) => f1Counts[b] - f1Counts[a]);
+        .filter(k => f1Counts[k] > 0)
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
 
       sortedF1.forEach(f1 => {
         const opt = document.createElement('option');
         opt.value = f1;
         const name = F1_LABELS[f1] || f1;
-        opt.innerText = `${f1} - ${name} (${f1Counts[f1].toLocaleString()})`;
+        opt.innerText = `${f1} - ${name} (${f1Counts[f1].toLocaleString()} términos)`;
         f1Select.appendChild(opt);
       });
 
