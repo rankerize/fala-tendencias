@@ -409,14 +409,15 @@
     .brand-tag-inline {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      font-size: 10.5px;
+      gap: 4px;
+      font-size: 11px;
       font-weight: 800;
-      padding: 2px 7px;
+      padding: 3px 9px;
       background: #f1f5f9;
       border: 1px solid #cbd5e1;
-      border-radius: 4px;
+      border-radius: 6px;
       color: #1e293b;
+      white-space: nowrap;
     }
 
     /* BADGES */
@@ -716,11 +717,12 @@
           <thead>
             <tr>
               <th style="width: 45px; text-align: center;">#</th>
-              <th style="min-width: 320px;">Término de Búsqueda</th>
-              <th style="width: 170px;">Dinámica / Crecimiento</th>
-              <th style="width: 120px;">Interés</th>
-              <th style="width: 190px;">Categoría F1</th>
-              <th style="width: 180px;">Tipo de Producto</th>
+              <th style="min-width: 260px;">Término de Búsqueda</th>
+              <th style="width: 120px;">Marca</th>
+              <th style="width: 160px;">Dinámica / Crecimiento</th>
+              <th style="width: 110px;">Interés</th>
+              <th style="width: 175px;">Categoría F1</th>
+              <th style="width: 160px;">Tipo de Producto</th>
             </tr>
           </thead>
           <tbody id="trendsTableBody">
@@ -898,14 +900,10 @@
     function populateDataStudioSelectors() {
       // 1. Contar F1 con datos
       const f1Counts = {};
-      const productCounts = {};
 
       masterData.forEach(item => {
         const f1 = item.f1_codigo || 'OTROS';
         f1Counts[f1] = (f1Counts[f1] || 0) + 1;
-
-        const prod = item.carpeta_origen || 'General';
-        productCounts[prod] = (productCounts[prod] || 0) + 1;
       });
 
       // Llenar Dropdown F1 (Solo categorías con datos > 0)
@@ -935,24 +933,8 @@
 
       document.getElementById('f1CountBadge').innerText = `${Object.keys(f1Counts).length} Activas`;
 
-      // Llenar Dropdown Tipo de Producto / Carpeta (Solo los que tienen datos > 0)
-      const prodSelect = document.getElementById('selectProduct');
-      prodSelect.innerHTML = `<option value="">Todos los productos (${masterData.length.toLocaleString()})</option>`;
-
-      const sortedProducts = Object.keys(productCounts)
-        .filter(p => productCounts[p] > 0)
-        .sort((a, b) => productCounts[b] - productCounts[a]);
-
-      sortedProducts.forEach(prod => {
-        const opt = document.createElement('option');
-        opt.value = prod;
-        // Capitalize first letter
-        const cleanName = prod.charAt(0).toUpperCase() + prod.slice(1);
-        opt.innerText = `${cleanName} (${productCounts[prod].toLocaleString()})`;
-        prodSelect.appendChild(opt);
-      });
-
-      // Inicializar F2
+      // Inicializar selectors dependientes
+      updateProductSelector("");
       updateF2Selector("");
     }
 
@@ -996,8 +978,33 @@
       document.getElementById('f2CountBadge').innerText = `${f2Keys.length} Sublíneas`;
     }
 
-    // Renderizar Selector Visual de Marcas con sus conteos
-    function renderBrandChips() {
+    // Actualizar Selector de Producto (cascada desde F1)
+    function updateProductSelector(f1Code) {
+      const baseData = f1Code ? masterData.filter(item => item.f1_codigo === f1Code) : masterData;
+      const productCounts = {};
+      baseData.forEach(item => {
+        const prod = item.carpeta_origen || 'General';
+        productCounts[prod] = (productCounts[prod] || 0) + 1;
+      });
+
+      const prodSelect = document.getElementById('selectProduct');
+      prodSelect.innerHTML = `<option value="">Todos los productos (${baseData.length.toLocaleString()})</option>`;
+
+      Object.keys(productCounts)
+        .filter(p => productCounts[p] > 0)
+        .sort((a, b) => productCounts[b] - productCounts[a])
+        .forEach(prod => {
+          const opt = document.createElement('option');
+          opt.value = prod;
+          const cleanName = prod.charAt(0).toUpperCase() + prod.slice(1);
+          opt.innerText = `${cleanName} (${productCounts[prod].toLocaleString()})`;
+          prodSelect.appendChild(opt);
+        });
+    }
+
+    // Renderizar Selector Visual de Marcas con sus conteos (baseData = datos ya filtrados sin filtro de marca)
+    function renderBrandChips(baseData) {
+      const data = baseData !== undefined ? baseData : masterData;
       const brandContainer = document.getElementById('brandChipsList');
       brandContainer.innerHTML = '';
 
@@ -1005,7 +1012,7 @@
       const allBtn = document.createElement('button');
       allBtn.className = `brand-chip-btn ${selectedBrand === "" ? "active" : ""}`;
       allBtn.setAttribute('data-brand', '');
-      allBtn.innerHTML = `Todas las marcas <span class="brand-count-badge">${masterData.length.toLocaleString()}</span>`;
+      allBtn.innerHTML = `Todas las marcas <span class="brand-count-badge">${data.length.toLocaleString()}</span>`;
       allBtn.addEventListener('click', () => {
         selectedBrand = "";
         document.querySelectorAll('.brand-chip-btn').forEach(b => b.classList.remove('active'));
@@ -1014,9 +1021,9 @@
       });
       brandContainer.appendChild(allBtn);
 
-      // Calcular conteos reales de cada marca en masterData
+      // Calcular conteos de cada marca en el contexto filtrado actual
       POPULAR_BRANDS.forEach(brand => {
-        const count = masterData.filter(item => brand.regex.test(item.query || '')).length;
+        const count = data.filter(item => brand.regex.test(item.query || '')).length;
         if (count > 0) {
           const btn = document.createElement('button');
           btn.className = `brand-chip-btn ${selectedBrand === brand.id ? "active" : ""}`;
@@ -1103,6 +1110,23 @@
       currentPage = 1;
       updateKPIScorecards();
       renderTableRows();
+
+      // Recalcular chips de marca con los filtros activos (excluye el filtro de marca para mostrar conteos reales)
+      const dataForBrandCounts = masterData.filter(item => {
+        if (selectedF1 && item.f1_codigo !== selectedF1) return false;
+        if (selectedF2 && item.f2_codigo !== selectedF2) return false;
+        if (selectedProduct && item.carpeta_origen !== selectedProduct) return false;
+        if (selectedType === 'breakout' && !item.is_breakout) return false;
+        if (selectedType === 'top' && item.tipo_busqueda !== 'top') return false;
+        if (selectedKeyword) {
+          const q = (item.query || '').toLowerCase();
+          const c = (item.carpeta_origen || '').toLowerCase();
+          const f = (item.f1_codigo || '').toLowerCase();
+          if (!q.includes(selectedKeyword) && !c.includes(selectedKeyword) && !f.includes(selectedKeyword)) return false;
+        }
+        return true;
+      });
+      renderBrandChips(dataForBrandCounts);
     }
 
     // Actualizar Scorecards Looker Studio
@@ -1151,7 +1175,7 @@
       document.getElementById('btnPageNext').disabled = currentPage >= totalPages;
 
       if (pageItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 45px; color: #64748b; font-weight:700;">No se encontraron términos que coincidan con los filtros seleccionados.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 45px; color: #64748b; font-weight:700;">No se encontraron términos que coincidan con los filtros seleccionados.</td></tr>`;
         return;
       }
 
@@ -1170,7 +1194,6 @@
             <div class="cell-term-wrapper">
               <div class="term-text">
                 <span>${escapeHTML(item.query)}</span>
-                ${brand ? `<span class="brand-tag-inline">🏷️ ${brand}</span>` : ''}
               </div>
               <button class="btn-copy-term" onclick="copyTerm(this, '${escapeJS(item.query)}')">
                 📋 Copiar
@@ -1178,8 +1201,13 @@
             </div>
           </td>
           <td>
-            ${isB ? '<span class="badge-breakout">&#x1F525; Breakout (&gt;5000%)</span>' : 
-              (item.increase_percent ? `<span class="badge-change">&#x2197;&#xFE0F; ${item.increase_percent}</span>` : 
+            ${brand
+              ? `<span class="brand-tag-inline">🏷️ ${brand}</span>`
+              : `<span style="color:#cbd5e1; font-size:12px; font-weight:600;">—</span>`}
+          </td>
+          <td>
+            ${isB ? '<span class="badge-breakout">&#x1F525; Breakout (&gt;5000%)</span>' :
+              (item.increase_percent ? `<span class="badge-change">&#x2197;&#xFE0F; ${item.increase_percent}</span>` :
               `<span class="badge-type-top">&#x2B50; Top Búsqueda</span>`)}
           </td>
           <td>
@@ -1230,11 +1258,14 @@
 
     // Event Listeners (Data Studio Controls)
     function attachEvents() {
-      // F1 Dropdown
+      // F1 Dropdown — cascada a F2 y Producto
       document.getElementById('selectF1').addEventListener('change', (e) => {
         selectedF1 = e.target.value;
         updateF2Selector(selectedF1);
         selectedF2 = "";
+        selectedProduct = "";
+        document.getElementById('selectProduct').value = "";
+        updateProductSelector(selectedF1);
         executeFiltering();
       });
 
@@ -1296,6 +1327,7 @@
         if (allBrandBtn) allBrandBtn.classList.add('active');
 
         updateF2Selector("");
+        updateProductSelector("");
         executeFiltering();
       });
 
