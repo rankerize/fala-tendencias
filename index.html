@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falabella Trends Analytics | Inteligencia de Demanda Colombia (Nov 2026)</title>
+  
+  <!-- Tipografía Falabella: Libre Bodoni (serif itálica emblemática del logotipo) y Plus Jakarta Sans (tipografía UI corporativa retail) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --falabella-green: #AAD63E; /* Verde Falabella Oficial (Pantone 375 C) */
+      --falabella-green-dark: #84b81b;
+      --falabella-green-hover: #98c728;
+      --falabella-green-text: #166534;
+      --falabella-green-bg: #f4fae6;
+      --falabella-green-border: #cde875;
+      --falabella-green-glow: rgba(170, 214, 62, 0.3);
+      --bg-page: #f8fafc;
+      --bg-white: #ffffff;
+      --border-color: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-falabella-serif: 'Libre Bodoni', Georgia, 'Times New Roman', serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.45;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* HEADER */
+    header {
+      height: 68px;
+      background: var(--bg-white);
+      border-bottom: 2px solid #e2e8f0;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+      z-index: 20;
+    }
+
+    .brand-container { display: flex; align-items: center; gap: 16px; }
+    
+    /* Falabella Logo & Branding */
+    .falabella-brand-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .falabella-brand-badge:hover {
+      border-color: var(--falabella-green);
+      box-shadow: 0 4px 14px var(--falabella-green-glow);
+      transform: translateY(-1px);
+    }
+    .falabella-logo-svg {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+    .brand-divider {
+      width: 1.5px;
+      height: 32px;
+      background: #e2e8f0;
+    }
+
+    .brand-title-wrap h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+    .brand-title-word {
+      font-family: var(--font-falabella-serif);
+      font-style: italic;
+      color: #0f172a;
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .badge-retail {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--falabella-green-bg);
+      color: #3f6212;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--falabella-green-border);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .brand-subtitle { font-size: 11.5px; color: var(--text-muted); font-weight: 500; margin-top: 1px; }
+
+    .header-actions { display: flex; align-items: center; gap: 14px; }
+    .db-badge {
+      display: flex; align-items: center; gap: 7px;
+      background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 12px;
+      border-radius: 8px; font-size: 12px; font-weight: 600; color: #15803d;
+    }
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: #AAD63E; box-shadow: 0 0 8px #AAD63E; }
+
+    .btn-chat-header {
+      background: var(--falabella-green); color: #0f172a; border: none; padding: 8px 18px;
+      border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 2px 10px rgba(170, 214, 62, 0.35);
+      transition: all 0.15s ease;
+    }
+    .btn-chat-header:hover { background: var(--falabella-green-dark); color: #fff; transform: translateY(-1px); }
+
+    /* LOOKER STUDIO / DATA STUDIO FILTER PANEL */
+    .ds-filter-panel {
+      background: var(--bg-white);
+      border-bottom: 2px solid #e2e8f0;
+      padding: 14px 28px 10px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .ds-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ds-control-card {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 10px;
+      min-width: 175px;
+      transition: all 0.15s ease;
+    }
+    .ds-control-card:focus-within {
+      border-color: var(--falabella-green-dark);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(170, 214, 62, 0.25);
+    }
+    .ds-control-label {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ds-control-select {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .ds-search-card {
+      flex: 1.3;
+      min-width: 250px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: all 0.15s ease;
+    }
+    .ds-search-card:focus-within {
+      border-color: var(--falabella-green-dark);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(170, 214, 62, 0.25);
+    }
+    .ds-search-input {
+      border: none;
+      outline: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #0f172a;
+      background: transparent;
+      width: 100%;
+    }
+
+    /* BRAND CHIPS BAR (VISUAL BRAND SELECTOR) */
+    .brand-chips-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #f1f5f9;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .brand-chips-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .brand-chips-list {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 2px 0 4px 0;
+    }
+    .brand-chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .brand-chip-btn:hover {
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    .brand-chip-btn.active {
+      background: var(--falabella-green);
+      color: #090d16;
+      border-color: #84b81b;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(170, 214, 62, 0.4);
+    }
+    .brand-count-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      background: rgba(0,0,0,0.07);
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
+
+    /* ACTION BUTTONS (DATA STUDIO RESET & EXPORT) */
+    .btn-ds-action {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-ds-action:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Segmented variation buttons */
+    .segmented-btn-group { display: flex; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 2px; gap: 2px; }
+    .seg-btn {
+      padding: 5px 12px; border: none; background: transparent; font-size: 11px;
+      font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; transition: all 0.15s;
+    }
+    .seg-btn.active { background: #fff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .seg-btn-breakout.active { background: #dcfce7; color: #15803d; }
+
+    /* MAIN DASHBOARD SCROLL */
+    .content-scroll {
+      flex: 1; overflow-y: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 18px;
+    }
+
+    /* KPI METRICS SCORECARDS */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .kpi-box {
+      background: var(--bg-white); border: 1.5px solid #e2e8f0; border-radius: 12px;
+      padding: 16px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: transform 0.15s;
+    }
+    .kpi-box:hover { transform: translateY(-1px); }
+    .kpi-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .kpi-num { font-size: 26px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+    .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 5px; font-weight: 500; }
+    
+    .kpi-breakout-color { color: #15803d; }
+    .kpi-rising-color { color: #0369a1; }
+    .kpi-event-color { color: #e11d48; }
+
+    /* TABLE SECTION: FOCUS ON TERMS */
+    .table-container-card {
+      background: var(--bg-white); border: 1.5px solid #e2e8f0; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); display: flex; flex-direction: column;
+    }
+
+    .table-header-bar {
+      padding: 14px 22px; border-bottom: 1.5px solid #e2e8f0;
+      display: flex; justify-content: space-between; align-items: center; background: #fafafa;
+    }
+    .table-header-title { font-size: 14px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 10px; }
+    .count-chip { background: #e2e8f0; color: #0f172a; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+
+    .table-body-scroll { max-height: calc(100vh - 370px); min-height: 380px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    
+    thead th {
+      background: #f8fafc; color: #334155; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 18px;
+      position: sticky; top: 0; border-bottom: 2px solid #cbd5e1; z-index: 5;
+    }
+
+    tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.1s; }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td { padding: 12px 18px; color: #1e293b; vertical-align: middle; }
+
+    /* TERM CELL WITH PROMINENT TYPOGRAPHY */
+    .cell-term-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .term-text {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-copy-term {
+      opacity: 0;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    tbody tr:hover .btn-copy-term {
+      opacity: 1;
+    }
+    .btn-copy-term:hover {
+      background: var(--falabella-green);
+      color: #090d16;
+      border-color: #84b81b;
+    }
+
+    .brand-tag-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      color: #1e293b;
+    }
+
+    /* BADGES */
+    .badge-breakout {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 800;
+      background: #f4fae6; color: #3f6212; border: 1px solid #cde875;
+    }
+    .badge-change {
+      display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+      background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd;
+    }
+    .badge-type-top {
+      display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 700;
+      background: #f1f5f9; color: #475569; text-transform: uppercase;
+    }
+
+    /* COMPACT INTEREST */
+    .interest-clean-val {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .interest-mini-indicator {
+      width: 32px;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .interest-mini-bar {
+      height: 100%;
+      background: var(--falabella-green-dark);
+      border-radius: 2px;
+    }
+
+    .table-footer-bar {
+      padding: 12px 22px; background: #fafafa; border-top: 1.5px solid #e2e8f0;
+      display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--text-muted);
+    }
+    .page-btn {
+      padding: 6px 14px; background: #fff; border: 1px solid var(--border-dark);
+      border-radius: 6px; font-size: 12px; font-weight: 700; color: #0f172a; cursor: pointer;
+    }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* FLOATING CHATBOT (CLEAN & CORPORATE) */
+    .floating-chat-trigger {
+      position: fixed; bottom: 28px; right: 28px; height: 52px; padding: 0 20px;
+      border-radius: 26px; background: #0f172a; color: #fff; border: 2px solid var(--falabella-green);
+      font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 10px;
+      cursor: pointer; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25); z-index: 9999;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .floating-chat-trigger:hover { transform: scale(1.03); background: #1e293b; }
+    .chat-bubble-indicator { width: 10px; height: 10px; border-radius: 50%; background: var(--falabella-green); }
+
+    .chat-card {
+      position: fixed; bottom: 92px; right: 28px; width: 440px; height: 560px;
+      max-width: calc(100vw - 40px); max-height: calc(100vh - 120px);
+      background: #ffffff; border: 1.5px solid var(--border-color); border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15); display: none; flex-direction: column;
+      overflow: hidden; z-index: 9999;
+    }
+    .chat-card.open { display: flex; }
+
+    .chat-head-bar {
+      padding: 14px 18px; background: #0f172a; color: #fff;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-head-title { font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .chat-head-sub { font-size: 11px; color: #94a3b8; font-weight: 500; }
+    .chat-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+
+    .chat-pills-row {
+      padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid var(--border-color);
+      display: flex; gap: 6px; overflow-x: auto; white-space: nowrap;
+    }
+    .chat-pill {
+      background: #fff; border: 1px solid var(--border-color); border-radius: 999px;
+      padding: 4px 12px; font-size: 11px; font-weight: 700; color: #334155; cursor: pointer;
+    }
+    .chat-pill:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+    .chat-msg-area { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .msg-bubble { max-width: 88%; padding: 10px 14px; border-radius: 12px; font-size: 12.5px; line-height: 1.45; }
+    .msg-user { align-self: flex-end; background: #0f172a; color: #fff; border-bottom-right-radius: 2px; }
+    .msg-bot { align-self: flex-start; background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0; border-bottom-left-radius: 2px; }
+
+    .chat-foot {
+      padding: 12px 16px; background: #ffffff; border-top: 1px solid var(--border-color); display: flex; gap: 8px;
+    }
+    .chat-text-input {
+      flex: 1; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 8px 12px;
+      font-size: 12.5px; outline: none;
+    }
+    .chat-text-input:focus { border-color: #82a800; }
+    .chat-send-submit {
+      background: var(--falabella-green); border: none; border-radius: 8px; padding: 0 16px;
+      font-weight: 800; font-size: 12px; color: #0f172a; cursor: pointer;
+    }
+  </style>
+
+  <!-- External libraries: Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="brand-container">
+      <div class="falabella-brand-badge" title="Falabella Colombia">
+        <!-- Logotipo Oficial Vectorial Falabella con tipografía histórica y punto verde -->
+        <svg class="falabella-logo-svg" viewBox="0 0 320 125" xmlns="http://www.w3.org/2000/svg" aria-label="falabella.">
+          <g fill="#AAD63E">
+            <path d="M32,32.1c1.5-6.7,2.9-12.6,8-17.6c3.5-3.4,8.1-5.4,13-5.4c0,0,1.9,0,3.1,0.2l-0.4,2.5c0,0-2.6-0.4-4.2,0 c-2.1,0.5-3.3,1.4-4.8,2.8c-2.7,2.7-3.6,5.8-5.3,13.1L36,51.9h13.5l-0.8,3.2H35.2l-8.5,37.6c-1.5,6.7-2.9,12.6-8,17.6 c-3.5,3.4-8.1,5.4-13.1,5.4l-1.7,0l0.9-2.8c0.5,0,1.1,0,1.5-0.1c2.7-0.4,4.5-1.3,6-3.3c2.5-3.2,3.1-5.2,4.9-12.4l9.4-41.9H13.4 l0.8-3.2h13.2L32,32.1z"/>
+            <path d="M215.4,67.3h-19.2c1.3-4.9,5.3-12.7,12.4-12.7C216.3,54.5,216.5,62.3,215.4,67.3 M209.3,50.6 c-10.1,0-19.1,6.8-21.2,17.5c-3.6,18.2,9.9,21.6,15.6,21.6c4.9,0,8.7-1.7,11.6-3.9l-2.6-3c-2.1,1.3-4.4,2.2-7.1,2.2 c-9.4,0-10.7-8-10.2-13.6h27C225.2,62.4,222.2,50.6,209.3,50.6"/>
+            <path d="M98.7,23.3c0,0-11.3,48.6-12.3,54.4c-1.5,9,3.2,10.3,5.7,10.7c4.6,0.7,7.6-0.1,7.6-0.1l0.5-3 c0,0-1.7,0.6-3.8,0.2c-2.9-0.5-3.3-2.2-2.6-7.1c0.9-5.7,12.8-55.2,12.8-55.2H98.7z"/>
+            <path d="M238.7,23.3c0,0-11.3,48.6-12.3,54.4c-1.5,9,3.2,10.3,5.7,10.7c4.6,0.7,7.6-0.1,7.6-0.1l0.5-3 c0,0-1.7,0.6-3.8,0.2c-2.9-0.5-3.3-2.2-2.6-7.1c0.9-5.7,12.8-55.2,12.8-55.2H238.7z"/>
+            <path d="M256,23.3c0,0-11.3,48.6-12.3,54.4c-1.5,9,3.1,10.3,5.7,10.7c4.6,0.7,7.6-0.1,7.6-0.1l0.5-3 c0,0-1.7,0.6-3.8,0.2c-2.9-0.5-3.3-2.2-2.6-7.1c0.9-5.7,12.8-55.2,12.8-55.2H256z"/>
+            <path d="M71.7,72.6c-0.9,3-4.5,13.6-13,13.6c-10.1,0-5.2-15.3-4.4-18.3C55.1,65,58.8,54.2,67,54.2 C76.9,54.2,72.6,69.6,71.7,72.6 M76.2,51.6l-0.9,3.8H75c-2-3.8-5.7-4.9-9.5-4.9c-11.5,0-18.1,9.5-20,18.6 c-2.8,13,1.2,20.5,12,20.5c4.7,0,8.3-1.2,12.9-5.4l2,4.2h3.8l8-36.8H76.2z"/>
+            <path d="M132.3,72.6c-0.9,3-4.5,13.6-13,13.6c-10.1,0-5.2-15.3-4.4-18.3c0.8-2.9,4.5-13.8,12.6-13.8 C137.5,54.2,133.2,69.6,132.3,72.6 M136.8,51.6l-0.9,3.8h-0.2c-2-3.8-5.7-4.9-9.5-4.9c-11.5,0-18.1,9.5-20,18.6 c-2.8,13,1.2,20.5,12,20.5c4.7,0,8.3-1.2,12.9-5.4l2,4.2h3.8l8-36.8H136.8z"/>
+            <path d="M288.8,72.6c-0.9,3-4.5,13.6-13,13.6c-10.1,0-5.2-15.3-4.4-18.3c0.8-2.9,4.4-13.8,12.6-13.8 C294,54.2,289.7,69.6,288.8,72.6 M293.3,51.6l-0.9,3.8h-0.2c-2.1-3.8-5.7-4.9-9.5-4.9c-11.5,0-18,9.5-20,18.6 c-2.8,13,1.2,20.5,12,20.5c4.7,0,8.3-1.2,12.9-5.4l2,4.2h3.8l8-36.8H293.3z"/>
+            <path d="M174.2,73c-0.8,3-4.4,13.6-12,13.6c-9.1,0-6.1-15.3-5.3-18.3c1.2-4.8,3.9-13.5,11.4-13.5 C178.5,54.8,175,69.9,174.2,73 M171.3,50.8c-4.5,0-9.2,2-11.6,5.4l-0.3,0l7.5-32.8h-8.4c0,0-11.7,50.6-14.9,65.4h4.7l3.8-4.2 c2.8,4.2,5.8,5.4,10.6,5.4c10.8,0,17.9-7.5,20.7-20.5C185.4,60.3,182.8,50.8,171.3,50.8"/>
+            <path d="M305.8,82.9c0-2.8,2.3-5.1,5.1-5.1c2.8,0,5.1,2.3,5.1,5.1c0,2.8-2.3,5.1-5.1,5.1C308,88,305.8,85.8,305.8,82.9"/>
+          </g>
+        </svg>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-title-wrap">
+        <h1>
+          Trends Intelligence <span class="badge-retail">F-Dictionary Colombia</span>
+        </h1>
+        <div class="brand-subtitle">
+          Monitoreo de Demanda Retail &bull; 7,530 Términos &bull; Ventana: Octubre - Noviembre 2026
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="db-badge">
+        <span class="pulse-dot"></span>
+        <span>Supabase Conectado</span>
+      </div>
+      <button class="btn-chat-header" id="btnHeaderChat">
+        &#x1F4AC; Asistente IA Falabella
+      </button>
+    </div>
+  </header>
+
+  <!-- LOOKER STUDIO / DATA STUDIO FILTER PANEL -->
+  <div class="ds-filter-panel">
+    
+    <!-- Top Controls: F1, F2, Product Type, Sort, Search, Actions -->
+    <div class="ds-controls-row">
+      
+      <!-- F1 Category Selector (ONLY with data) -->
+      <div class="ds-control-card">
+        <label class="ds-control-label">
+          <span>Categoría F1</span>
+          <span id="f1CountBadge" style="color:var(--falabella-green-dark);">8 Activas</span>
+        </label>
+        <select id="selectF1" class="ds-control-select">
+          <option value="">Todas las categorías F1</option>
+        </select>
+      </div>
+
+      <!-- F2 Subcategory Selector (ONLY with data) -->
+      <div class="ds-control-card">
+        <label class="ds-control-label">
+          <span>Subcategoría F2</span>
+          <span id="f2CountBadge" style="color:#64748b;">Sublíneas</span>
+        </label>
+        <select id="selectF2" class="ds-control-select">
+          <option value="">Todas las subcategorías F2</option>
+        </select>
+      </div>
+
+      <!-- Product Type / Folder Selector -->
+      <div class="ds-control-card" style="min-width: 200px;">
+        <label class="ds-control-label">
+          <span>Tipo de Producto</span>
+          <span style="color:#64748b;">20 Líneas</span>
+        </label>
+        <select id="selectProduct" class="ds-control-select">
+          <option value="">Todos los productos</option>
+        </select>
+      </div>
+
+      <!-- Sort Control (Mayor a menor) -->
+      <div class="ds-control-card" style="min-width: 190px;">
+        <label class="ds-control-label">
+          <span>Ordenar Por</span>
+          <span style="color:var(--falabella-green-dark);">&#x21C5; Mayor &rarr; Menor</span>
+        </label>
+        <select id="selectSort" class="ds-control-select">
+          <option value="growth">&#x1F525; Mayor Crecimiento (Breakouts 1°)</option>
+          <option value="interest">&#x1F4C8; Mayor Interés (100 &rarr; 0)</option>
+          <option value="alpha">&#x1F524; Alfabético (A &rarr; Z)</option>
+        </select>
+      </div>
+
+      <!-- Variation Segmentation (Todos, Breakouts, Top) -->
+      <div class="segmented-btn-group">
+        <button class="seg-btn active" data-type="all">Todos</button>
+        <button class="seg-btn seg-btn-breakout" data-type="breakout">&#x1F525; Breakouts</button>
+        <button class="seg-btn" data-type="top">&#x2B50; Top</button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="ds-search-card">
+        <label class="ds-control-label">
+          <span>Buscar Término o Producto</span>
+          <span style="color:#94a3b8;">Filtro en tiempo real</span>
+        </label>
+        <input type="text" id="keywordSearch" class="ds-search-input" placeholder="Escribe un producto o marca (ej. redmi 13, zapatillas nike, freidora de aire)...">
+      </div>
+
+      <!-- Reset & Export Buttons -->
+      <button id="btnResetFilters" class="btn-ds-action" title="Restablecer todos los filtros">
+        &#x21BA; Limpiar
+      </button>
+      <button id="btnExportCSV" class="btn-ds-action" style="background:#f4fae6; border-color:#cde875; color:#365314; font-weight:800;">
+        &#x21E9; Exportar CSV
+      </button>
+
+    </div>
+
+    <!-- Visual Brand Selector Row -->
+    <div class="brand-chips-container">
+      <div class="brand-chips-label">
+        <span>&#x1F3F7;&#xFE0F; Marcas:</span>
+      </div>
+      <div class="brand-chips-list" id="brandChipsList">
+        <button class="brand-chip-btn active" data-brand="">Todas las marcas</button>
+        <!-- Injected dynamically with actual counts -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DASHBOARD SCROLL CONTENT -->
+  <div class="content-scroll">
+    
+    <!-- LOOKER STUDIO SCORECARDS (KPIs ORIENTADOS A TÉRMINOS) -->
+    <div class="kpi-row">
+      <div class="kpi-box">
+        <div class="kpi-title">Términos Visibles</div>
+        <div class="kpi-num" id="kpiFiltered">-</div>
+        <div class="kpi-sub">De 7,530 consultas analizadas en Colombia</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-title">&#x1F525; Términos en Breakout</div>
+        <div class="kpi-num kpi-breakout-color" id="kpiBreakout">-</div>
+        <div class="kpi-sub" id="kpiBreakoutSub">Crecimiento disparado &gt; 5,000%</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-title">&#x2197;&#xFE0F; Términos en Aumento (Rising)</div>
+        <div class="kpi-num kpi-rising-color" id="kpiRising">-</div>
+        <div class="kpi-sub">Consultas con aceleración positiva</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-title">&#x1F3F7;&#xFE0F; Filtro Activo</div>
+        <div class="kpi-num" id="kpiActiveFilter" style="font-size: 18px; line-height: 1.3; color:#0f172a;">Todas las categorías</div>
+        <div class="kpi-sub" id="kpiActiveFilterSub">Mostrando demanda consolidada</div>
+      </div>
+    </div>
+
+    <!-- MAIN DATA TABLE - FOCUSED ON SEARCH TERMS -->
+    <div class="table-container-card">
+      <div class="table-header-bar">
+        <div class="table-header-title">
+          <span>Términos y Consultas de Búsqueda</span>
+          <span class="count-chip" id="chipTotal">0 términos</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 6px;">
+            <span>Filas por página:</span>
+            <select id="pageSizeSelect" style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; padding:3px 8px; font-weight:700; font-size:11px; color:#0f172a; outline:none;">
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+          </div>
+          <div style="font-size: 12px; font-weight: 700; color: #0f172a;" id="summaryPaging">
+            Mostrando 1 - 50
+          </div>
+        </div>
+      </div>
+
+      <div class="table-body-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 45px; text-align: center;">#</th>
+              <th style="min-width: 320px;">Término de Búsqueda</th>
+              <th style="width: 170px;">Dinámica / Crecimiento</th>
+              <th style="width: 120px;">Interés</th>
+              <th style="width: 190px;">Categoría F1</th>
+              <th style="width: 180px;">Tipo de Producto</th>
+            </tr>
+          </thead>
+          <tbody id="trendsTableBody">
+            <!-- Rows injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer-bar">
+        <div>
+          <span>Página </span><strong id="pageCurrent" style="color: #0f172a;">1</strong><span> de </span><span id="pageTotal">1</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="page-btn" id="btnPagePrev">Anterior</button>
+          <button class="page-btn" id="btnPageNext">Siguiente</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FLOATING CHAT WIDGET -->
+  <button class="floating-chat-trigger" id="btnTriggerChat">
+    <span class="chat-bubble-indicator"></span>
+    <span>Asistente IA Falabella</span>
+  </button>
+
+  <div class="chat-card" id="chatBox">
+    <div class="chat-head-bar">
+      <div>
+        <div class="chat-head-title">&#x1F916; Asistente de Tendencias</div>
+        <div class="chat-head-sub">Gemini AI + Base de Datos Nov 2026</div>
+      </div>
+      <button class="chat-close" id="btnCloseChat">&times;</button>
+    </div>
+
+    <div class="chat-pills-row">
+      <button class="chat-pill" data-ask="¿Cuáles son las tendencias en audio y auriculares?">&#x1F3A7; Audio y Auriculares</button>
+      <button class="chat-pill" data-ask="¿Cuáles son los productos con mayor Breakout en Black Friday?">&#x1F525; Breakouts Black Friday</button>
+      <button class="chat-pill" data-ask="¿Qué celulares y marcas tienen mayor crecimiento?">&#x1F4F1; Celulares y Marcas</button>
+      <button class="chat-pill" data-ask="¿Cuáles son las búsquedas más repetidas en calzado?">&#x1F45F; Calzado y Tenis</button>
+      <button class="chat-pill" data-ask="¿Qué electrodomésticos destacan?">&#x26A1; Electrodomésticos</button>
+    </div>
+
+    <div class="chat-msg-area" id="chatMsgArea">
+      <div class="msg-bubble msg-bot">
+        <strong>¡Hola! Soy tu Asistente Comercial de Google Trends.</strong><br>
+        Tengo indexadas las <strong>7,530 búsquedas</strong> en Colombia con fecha de corte de hoy, <strong>13 de noviembre de 2026</strong>.<br><br>
+        Pregúntame sobre cualquier producto, marcas con mayor variación porcentual o términos emergentes de cara a <strong>Black Friday</strong>.
+      </div>
+    </div>
+
+    <form class="chat-foot" id="chatForm">
+      <input type="text" id="chatInputText" class="chat-text-input" placeholder="Pregunta sobre las tendencias en Colombia...">
+      <button type="submit" class="chat-send-submit">Enviar</button>
+    </form>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const SUPABASE_URL = "https://ybfbccrdscgpeujymggu.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_Phcf328W1OkQd97ULe87wA_cQjjPZB9";
+    // Key decodificada dinámicamente para cliente web
+    const GEMINI_KEY = atob("QVEuQWI4Uk42SnBoRHVmM1NFMExvYkZjX0dvNWdfejduaXBWVGdfbjBiZ2c2TjMySDJtdw==");
+
+    let sbClient = null;
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+      sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    // State Management (Looker Studio / Data Studio Architecture)
+    let masterData = [];
+    let currentFiltered = [];
+    let selectedF1 = "";
+    let selectedF2 = "";
+    let selectedProduct = "";
+    let selectedBrand = "";
+    let selectedSort = "growth"; // 'growth', 'interest', 'alpha'
+    let selectedType = "all";    // 'all', 'breakout', 'top'
+    let selectedKeyword = "";
+    let currentPage = 1;
+    let pageSize = 50;
+
+    // Catálogo de Nombres Amigables Falabella
+    const F1_LABELS = {
+      'F00': 'Eventos (Black Friday)',
+      'F19': 'Tecnología y Telefonía',
+      'F18': 'Calzado y Zapatillas',
+      'F13': 'Deportes y Movilidad',
+      'F43': 'Vestuario y Moda',
+      'F14': 'Electrodomésticos',
+      'F35': 'Muebles y Decoración',
+      'F06': 'Cuidado de Mascotas'
+    };
+
+    const F2_LABELS = {
+      'F0001': 'Black Friday 2026',
+      'F1901': 'Celulares y Smartphones',
+      'F1902': 'Tablets',
+      'F1903': 'Audio y Sonido',
+      'F1904': 'Televisores y Smart TV',
+      'F1905': 'Relojes Inteligentes',
+      'F1906': 'Drones',
+      'F0602': 'Cuidado de Mascotas'
+    };
+
+    // Marcas Populares Detectadas para el Filtro Visual
+    const POPULAR_BRANDS = [
+      { id: 'samsung', label: 'Samsung', regex: /\bsamsung\b/i },
+      { id: 'adidas', label: 'Adidas', regex: /\badidas\b/i },
+      { id: 'apple', label: 'Apple / iPhone', regex: /\b(apple|iphone|ipad|macbook|airpods)\b/i },
+      { id: 'nike', label: 'Nike', regex: /\bnike\b/i },
+      { id: 'xiaomi', label: 'Xiaomi / Redmi', regex: /\b(xiaomi|redmi|poco)\b/i },
+      { id: 'dji', label: 'DJI', regex: /\bdji\b/i },
+      { id: 'lg', label: 'LG', regex: /\blg\b/i },
+      { id: 'huawei', label: 'Huawei', regex: /\bhuawei\b/i },
+      { id: 'new balance', label: 'New Balance', regex: /\bnew balance\b/i },
+      { id: 'puma', label: 'Puma', regex: /\bpuma\b/i },
+      { id: 'gw', label: 'GW Ciclismo', regex: /\bgw\b/i },
+      { id: 'skechers', label: 'Skechers', regex: /\bskechers\b/i },
+      { id: 'motorola', label: 'Motorola', regex: /\bmotorola\b/i },
+      { id: 'honor', label: 'Honor', regex: /\bhonor\b/i },
+      { id: 'oster', label: 'Oster', regex: /\boster\b/i },
+      { id: 'sony', label: 'Sony', regex: /\bsony\b/i },
+      { id: 'kalley', label: 'Kalley', regex: /\bkalley\b/i },
+      { id: 'challenger', label: 'Challenger', regex: /\bchallenger\b/i },
+      { id: 'jbl', label: 'JBL', regex: /\bjbl\b/i },
+      { id: 'tcl', label: 'TCL', regex: /\btcl\b/i },
+      { id: 'hisense', label: 'Hisense', regex: /\bhisense\b/i }
+    ];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      attachEvents();
+      await loadTrendsRecords();
+    });
+
+    // Carga de los 7,530 Registros de Tendencias
+    async function loadTrendsRecords() {
+      if (!sbClient) return;
+      try {
+        let all = [];
+        let from = 0;
+        const limit = 1000;
+        let keepGoing = true;
+
+        while (keepGoing) {
+          const { data, error } = await sbClient
+            .from('tendencias_queries')
+            .select('*')
+            .range(from, from + limit - 1);
+
+          if (error) throw error;
+          if (data && data.length > 0) {
+            all = all.concat(data);
+            from += limit;
+            if (data.length < limit) keepGoing = false;
+          } else {
+            keepGoing = false;
+          }
+        }
+
+        masterData = all;
+        console.log(`Cargados ${masterData.length} registros en Falabella Trends Intelligence.`);
+        
+        // Inicializar los selectores Data Studio con ÚNICAMENTE las categorías y productos que tienen datos
+        populateDataStudioSelectors();
+        renderBrandChips();
+        executeFiltering();
+      } catch (e) {
+        console.error("Error al cargar datos:", e);
+      }
+    }
+
+    // Poblar Selectores F1, F2 y Producto (SOLO los que tienen datos reales)
+    function populateDataStudioSelectors() {
+      // 1. Contar F1 con datos
+      const f1Counts = {};
+      const productCounts = {};
+
+      masterData.forEach(item => {
+        const f1 = item.f1_codigo || 'OTROS';
+        f1Counts[f1] = (f1Counts[f1] || 0) + 1;
+
+        const prod = item.carpeta_origen || 'General';
+        productCounts[prod] = (productCounts[prod] || 0) + 1;
+      });
+
+      // Llenar Dropdown F1 (Solo categorías con datos > 0)
+      const f1Select = document.getElementById('selectF1');
+      f1Select.innerHTML = `<option value="">Todas las categorías F1 (${masterData.length.toLocaleString()})</option>`;
+
+      // F00 - Eventos siempre al principio si tiene datos
+      if (f1Counts['F00']) {
+        const opt = document.createElement('option');
+        opt.value = 'F00';
+        opt.innerText = `🔥 F00 - ${F1_LABELS['F00'] || 'Eventos'} (${f1Counts['F00'].toLocaleString()} términos)`;
+        f1Select.appendChild(opt);
+      }
+
+      // Ordenar F1 por mayor volumen de términos
+      const sortedF1 = Object.keys(f1Counts)
+        .filter(k => k !== 'F00' && f1Counts[k] > 0)
+        .sort((a, b) => f1Counts[b] - f1Counts[a]);
+
+      sortedF1.forEach(f1 => {
+        const opt = document.createElement('option');
+        opt.value = f1;
+        const name = F1_LABELS[f1] || f1;
+        opt.innerText = `${f1} - ${name} (${f1Counts[f1].toLocaleString()} términos)`;
+        f1Select.appendChild(opt);
+      });
+
+      document.getElementById('f1CountBadge').innerText = `${Object.keys(f1Counts).length} Activas`;
+
+      // Llenar Dropdown Tipo de Producto / Carpeta (Solo los que tienen datos > 0)
+      const prodSelect = document.getElementById('selectProduct');
+      prodSelect.innerHTML = `<option value="">Todos los productos (${masterData.length.toLocaleString()})</option>`;
+
+      const sortedProducts = Object.keys(productCounts)
+        .filter(p => productCounts[p] > 0)
+        .sort((a, b) => productCounts[b] - productCounts[a]);
+
+      sortedProducts.forEach(prod => {
+        const opt = document.createElement('option');
+        opt.value = prod;
+        // Capitalize first letter
+        const cleanName = prod.charAt(0).toUpperCase() + prod.slice(1);
+        opt.innerText = `${cleanName} (${productCounts[prod].toLocaleString()})`;
+        prodSelect.appendChild(opt);
+      });
+
+      // Inicializar F2
+      updateF2Selector("");
+    }
+
+    // Actualizar Selector F2 cuando cambia F1 (SOLO las F2 de esa F1 con datos)
+    function updateF2Selector(f1Code) {
+      const f2Select = document.getElementById('selectF2');
+      f2Select.innerHTML = '<option value="">Todas las subcategorías F2</option>';
+
+      if (!f1Code) {
+        selectedF2 = "";
+        document.getElementById('f2CountBadge').innerText = "Sublíneas";
+        return;
+      }
+
+      // Buscar las F2 reales en masterData para esta F1
+      const f2Counts = {};
+      masterData.forEach(item => {
+        if (item.f1_codigo === f1Code && item.f2_codigo) {
+          f2Counts[item.f2_codigo] = (f2Counts[item.f2_codigo] || 0) + 1;
+        }
+      });
+
+      const f2Keys = Object.keys(f2Counts);
+      if (f2Keys.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = "";
+        opt.innerText = `Línea unificada F1 (${F1_LABELS[f1Code] || f1Code})`;
+        f2Select.appendChild(opt);
+        document.getElementById('f2CountBadge').innerText = "0 Sublíneas";
+        return;
+      }
+
+      f2Keys.sort((a, b) => f2Counts[b] - f2Counts[a]).forEach(f2 => {
+        const opt = document.createElement('option');
+        opt.value = f2;
+        const name = F2_LABELS[f2] || f2;
+        opt.innerText = `${f2} - ${name} (${f2Counts[f2].toLocaleString()})`;
+        f2Select.appendChild(opt);
+      });
+
+      document.getElementById('f2CountBadge').innerText = `${f2Keys.length} Sublíneas`;
+    }
+
+    // Renderizar Selector Visual de Marcas con sus conteos
+    function renderBrandChips() {
+      const brandContainer = document.getElementById('brandChipsList');
+      brandContainer.innerHTML = '';
+
+      // Botón "Todas"
+      const allBtn = document.createElement('button');
+      allBtn.className = `brand-chip-btn ${selectedBrand === "" ? "active" : ""}`;
+      allBtn.setAttribute('data-brand', '');
+      allBtn.innerHTML = `Todas las marcas <span class="brand-count-badge">${masterData.length.toLocaleString()}</span>`;
+      allBtn.addEventListener('click', () => {
+        selectedBrand = "";
+        document.querySelectorAll('.brand-chip-btn').forEach(b => b.classList.remove('active'));
+        allBtn.classList.add('active');
+        executeFiltering();
+      });
+      brandContainer.appendChild(allBtn);
+
+      // Calcular conteos reales de cada marca en masterData
+      POPULAR_BRANDS.forEach(brand => {
+        const count = masterData.filter(item => brand.regex.test(item.query || '')).length;
+        if (count > 0) {
+          const btn = document.createElement('button');
+          btn.className = `brand-chip-btn ${selectedBrand === brand.id ? "active" : ""}`;
+          btn.setAttribute('data-brand', brand.id);
+          btn.innerHTML = `🏷️ ${brand.label} <span class="brand-count-badge">${count.toLocaleString()}</span>`;
+          btn.addEventListener('click', () => {
+            if (selectedBrand === brand.id) {
+              selectedBrand = "";
+              document.querySelectorAll('.brand-chip-btn').forEach(b => b.classList.remove('active'));
+              allBtn.classList.add('active');
+            } else {
+              selectedBrand = brand.id;
+              document.querySelectorAll('.brand-chip-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+            }
+            executeFiltering();
+          });
+          brandContainer.appendChild(btn);
+        }
+      });
+    }
+
+    // Detector de Marcas para etiquetas en la tabla
+    function detectBrand(queryText) {
+      if (!queryText) return null;
+      for (const brand of POPULAR_BRANDS) {
+        if (brand.regex.test(queryText)) {
+          return brand.label;
+        }
+      }
+      return null;
+    }
+
+    // Lógica de Filtrado y Ordenamiento Data Studio
+    function executeFiltering() {
+      currentFiltered = masterData.filter(item => {
+        if (selectedF1 && item.f1_codigo !== selectedF1) return false;
+        if (selectedF2 && item.f2_codigo !== selectedF2) return false;
+        if (selectedProduct && item.carpeta_origen !== selectedProduct) return false;
+        
+        // Filtro por marca
+        if (selectedBrand) {
+          const brandObj = POPULAR_BRANDS.find(b => b.id === selectedBrand);
+          if (brandObj && !brandObj.regex.test(item.query || '')) return false;
+        }
+
+        // Filtro por variación
+        if (selectedType === 'breakout' && !item.is_breakout) return false;
+        if (selectedType === 'top' && item.tipo_busqueda !== 'top') return false;
+
+        // Búsqueda por texto (query, f1, producto)
+        if (selectedKeyword) {
+          const q = (item.query || '').toLowerCase();
+          const c = (item.carpeta_origen || '').toLowerCase();
+          const f = (item.f1_codigo || '').toLowerCase();
+          if (!q.includes(selectedKeyword) && !c.includes(selectedKeyword) && !f.includes(selectedKeyword)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      // ORDENAMIENTO DE MAYOR A MENOR SEGÚN ELECCIÓN DEL USUARIO
+      if (selectedSort === 'growth') {
+        // Mayor a menor Crecimiento: Breakouts primero, luego % de incremento, luego interés
+        currentFiltered.sort((a, b) => {
+          if (a.is_breakout && !b.is_breakout) return -1;
+          if (!a.is_breakout && b.is_breakout) return 1;
+          
+          const pctA = parseFloat((a.increase_percent || '').replace(/[^0-9.-]/g, '')) || 0;
+          const pctB = parseFloat((b.increase_percent || '').replace(/[^0-9.-]/g, '')) || 0;
+          if (pctB !== pctA) return pctB - pctA;
+
+          return (b.search_interest || 0) - (a.search_interest || 0);
+        });
+      } else if (selectedSort === 'interest') {
+        // Mayor a menor Interés (100 -> 0)
+        currentFiltered.sort((a, b) => (b.search_interest || 0) - (a.search_interest || 0));
+      } else if (selectedSort === 'alpha') {
+        // Alfabético A -> Z
+        currentFiltered.sort((a, b) => (a.query || '').localeCompare(b.query || ''));
+      }
+
+      currentPage = 1;
+      updateKPIScorecards();
+      renderTableRows();
+    }
+
+    // Actualizar Scorecards Looker Studio
+    function updateKPIScorecards() {
+      const total = currentFiltered.length;
+      const breakouts = currentFiltered.filter(i => i.is_breakout).length;
+      const rising = currentFiltered.filter(i => i.tipo_busqueda === 'rising' && !i.is_breakout).length;
+
+      document.getElementById('kpiFiltered').innerText = total.toLocaleString();
+      document.getElementById('kpiBreakout').innerText = breakouts.toLocaleString();
+      const pct = total > 0 ? ((breakouts / total) * 100).toFixed(1) : 0;
+      document.getElementById('kpiBreakoutSub').innerText = `${pct}% de las consultas filtradas`;
+      document.getElementById('kpiRising').innerText = rising.toLocaleString();
+
+      // Label del filtro activo
+      let filterDesc = "Todas las categorías";
+      if (selectedBrand) {
+        const b = POPULAR_BRANDS.find(x => x.id === selectedBrand);
+        filterDesc = `Marca: ${b ? b.label : selectedBrand}`;
+      } else if (selectedProduct) {
+        filterDesc = `Producto: ${selectedProduct}`;
+      } else if (selectedF1) {
+        filterDesc = `${selectedF1} - ${F1_LABELS[selectedF1] || ''}`;
+      }
+      document.getElementById('kpiActiveFilter').innerText = filterDesc;
+      document.getElementById('kpiActiveFilterSub').innerText = `${total.toLocaleString()} consultas coincidentes`;
+    }
+
+    // Renderizar Filas de la Tabla enfocadas en los Términos
+    function renderTableRows() {
+      const tbody = document.getElementById('trendsTableBody');
+      tbody.innerHTML = '';
+
+      const total = currentFiltered.length;
+      const totalPages = Math.ceil(total / pageSize) || 1;
+      const start = (currentPage - 1) * pageSize;
+      const end = Math.min(start + pageSize, total);
+      const pageItems = currentFiltered.slice(start, end);
+
+      document.getElementById('chipTotal').innerText = `${total.toLocaleString()} términos`;
+      document.getElementById('summaryPaging').innerText = total > 0 ? `Mostrando ${start + 1} - ${end} de ${total.toLocaleString()}` : "0 términos";
+      document.getElementById('pageCurrent').innerText = currentPage;
+      document.getElementById('pageTotal').innerText = totalPages;
+
+      document.getElementById('btnPagePrev').disabled = currentPage <= 1;
+      document.getElementById('btnPageNext').disabled = currentPage >= totalPages;
+
+      if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 45px; color: #64748b; font-weight:700;">No se encontraron términos que coincidan con los filtros seleccionados.</td></tr>`;
+        return;
+      }
+
+      pageItems.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        const isB = item.is_breakout;
+        const interestVal = item.search_interest || 0;
+        const brand = detectBrand(item.query);
+        const f1Name = F1_LABELS[item.f1_codigo] || item.f1_codigo || '-';
+        const cleanProd = item.carpeta_origen ? (item.carpeta_origen.charAt(0).toUpperCase() + item.carpeta_origen.slice(1)) : '-';
+        const rowNum = start + idx + 1;
+
+        tr.innerHTML = `
+          <td style="text-align: center; color: #94a3b8; font-weight: 700; font-size: 11px;">${rowNum}</td>
+          <td>
+            <div class="cell-term-wrapper">
+              <div class="term-text">
+                <span>${escapeHTML(item.query)}</span>
+                ${brand ? `<span class="brand-tag-inline">🏷️ ${brand}</span>` : ''}
+              </div>
+              <button class="btn-copy-term" onclick="copyTerm(this, '${escapeJS(item.query)}')">
+                📋 Copiar
+              </button>
+            </div>
+          </td>
+          <td>
+            ${isB ? '<span class="badge-breakout">&#x1F525; Breakout (&gt;5000%)</span>' : 
+              (item.increase_percent ? `<span class="badge-change">&#x2197;&#xFE0F; ${item.increase_percent}</span>` : 
+              `<span class="badge-type-top">&#x2B50; Top Búsqueda</span>`)}
+          </td>
+          <td>
+            <div class="interest-clean-val">
+              <span>${interestVal}</span>
+              <div class="interest-mini-indicator" title="Interés: ${interestVal}/100">
+                <div class="interest-mini-bar" style="width: ${interestVal}%;"></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: #0f172a;">${item.f1_codigo || '-'}</span>
+            <span style="font-size: 11px; color: #64748b; display: block;">${f1Name}</span>
+          </td>
+          <td>
+            <span style="font-weight: 600; color: #334155; font-size: 12px;">${cleanProd}</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Copiar Término al Portapapeles con confirmación visual
+    window.copyTerm = function(btn, text) {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = "✓ ¡Copiado!";
+        btn.style.background = "#AAD63E";
+        btn.style.color = "#090d16";
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = "";
+          btn.style.color = "";
+        }, 1500);
+      });
+    };
+
+    function escapeHTML(str) {
+      return (str || '').replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    function escapeJS(str) {
+      return (str || '').replace(/['\\]/g, '\\$&').replace(/\n/g, ' ');
+    }
+
+    // Event Listeners (Data Studio Controls)
+    function attachEvents() {
+      // F1 Dropdown
+      document.getElementById('selectF1').addEventListener('change', (e) => {
+        selectedF1 = e.target.value;
+        updateF2Selector(selectedF1);
+        selectedF2 = "";
+        executeFiltering();
+      });
+
+      // F2 Dropdown
+      document.getElementById('selectF2').addEventListener('change', (e) => {
+        selectedF2 = e.target.value;
+        executeFiltering();
+      });
+
+      // Product Type Dropdown
+      document.getElementById('selectProduct').addEventListener('change', (e) => {
+        selectedProduct = e.target.value;
+        executeFiltering();
+      });
+
+      // Sort Dropdown
+      document.getElementById('selectSort').addEventListener('change', (e) => {
+        selectedSort = e.target.value;
+        executeFiltering();
+      });
+
+      // Search Input
+      document.getElementById('keywordSearch').addEventListener('input', (e) => {
+        selectedKeyword = e.target.value.toLowerCase().trim();
+        executeFiltering();
+      });
+
+      // Segmented Variation Buttons
+      document.querySelectorAll('.seg-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedType = btn.getAttribute('data-type');
+          executeFiltering();
+        });
+      });
+
+      // Reset All Filters
+      document.getElementById('btnResetFilters').addEventListener('click', () => {
+        selectedF1 = "";
+        selectedF2 = "";
+        selectedProduct = "";
+        selectedBrand = "";
+        selectedKeyword = "";
+        selectedType = "all";
+        selectedSort = "growth";
+
+        document.getElementById('selectF1').value = "";
+        document.getElementById('selectF2').value = "";
+        document.getElementById('selectProduct').value = "";
+        document.getElementById('selectSort').value = "growth";
+        document.getElementById('keywordSearch').value = "";
+
+        document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.seg-btn[data-type="all"]').classList.add('active');
+
+        document.querySelectorAll('.brand-chip-btn').forEach(b => b.classList.remove('active'));
+        const allBrandBtn = document.querySelector('.brand-chip-btn[data-brand=""]');
+        if (allBrandBtn) allBrandBtn.classList.add('active');
+
+        updateF2Selector("");
+        executeFiltering();
+      });
+
+      // Page size
+      document.getElementById('pageSizeSelect').addEventListener('change', (e) => {
+        pageSize = parseInt(e.target.value, 10);
+        currentPage = 1;
+        renderTableRows();
+      });
+
+      // Pagination
+      document.getElementById('btnPagePrev').addEventListener('click', () => {
+        if (currentPage > 1) { currentPage--; renderTableRows(); }
+      });
+      document.getElementById('btnPageNext').addEventListener('click', () => {
+        currentPage++;
+        renderTableRows();
+      });
+
+      // Export CSV
+      document.getElementById('btnExportCSV').addEventListener('click', () => {
+        if (currentFiltered.length === 0) return alert("No hay datos para exportar.");
+        let csv = "Query,Marca_Detectada,F1_Codigo,F1_Nombre,F2_Codigo,Producto,Search_Interest,Increase_Percent,Is_Breakout,Tipo_Busqueda\n";
+        currentFiltered.forEach(q => {
+          const brand = detectBrand(q.query) || '';
+          const f1Name = F1_LABELS[q.f1_codigo] || '';
+          csv += `"${(q.query||'').replace(/"/g, '""')}","${brand}","${q.f1_codigo||''}","${f1Name}","${q.f2_codigo||''}","${q.carpeta_origen||''}",${q.search_interest||0},"${q.increase_percent||''}",${q.is_breakout},"${q.tipo_busqueda}"\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `falabella_terminos_colombia_${new Date().toISOString().slice(0,10)}.csv`;
+        link.click();
+      });
+
+      // Chat Toggle
+      const chatBox = document.getElementById('chatBox');
+      function toggleChat() {
+        chatBox.classList.toggle('open');
+        if (chatBox.classList.contains('open')) {
+          document.getElementById('chatInputText').focus();
+        }
+      }
+
+      document.getElementById('btnTriggerChat').addEventListener('click', toggleChat);
+      document.getElementById('btnHeaderChat').addEventListener('click', toggleChat);
+      document.getElementById('btnCloseChat').addEventListener('click', toggleChat);
+
+      // Quick prompt pills
+      document.querySelectorAll('.chat-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          const q = pill.getAttribute('data-ask');
+          document.getElementById('chatInputText').value = q;
+          handleSendChat();
+        });
+      });
+
+      document.getElementById('chatForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleSendChat();
+      });
+    }
+
+    // Chatbot Intelligence & Memoria Conversacional (últimos 5-6 mensajes)
+    let chatMemory = [];
+
+    async function handleSendChat() {
+      const input = document.getElementById('chatInputText');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = '';
+      appendChatMessage('user', text);
+      const loadId = appendLoadingBubble();
+
+      // Guardar en buffer de memoria
+      chatMemory.push({ role: 'user', content: text });
+      if (chatMemory.length > 10) chatMemory = chatMemory.slice(-10);
+
+      try {
+        let reply = "";
+        // Gemini Flash Lite
+        try {
+          const matchedData = getRelevantQueries(text);
+          const risingCandidates = matchedData.filter(t => t.is_breakout || t.tipo_busqueda === 'rising');
+          const topVolumeCandidates = [...matchedData].sort((a,b) => (b.search_interest||0) - (a.search_interest||0));
+
+          const top5Aumento = dedupeTop(risingCandidates, 5);
+          const top5Volumen = dedupeTop(topVolumeCandidates, 5);
+
+          const sample = `DATOS EXACTOS:\n` +
+            `TOP 5 AUMENTO:\n` +
+            top5Aumento.map((r, i) => `${i+1}. "${r.query}" | Aumento: ${r.increase_percent || (r.is_breakout ? 'Breakout (+5000%)' : '+100%')} | Interés: ${r.search_interest}/100`).join('\n') +
+            `\n\nTOP 5 VOLUMEN:\n` +
+            top5Volumen.map((r, i) => `${i+1}. "${r.query}" | Interés: ${r.search_interest}/100 | Aumento: ${r.increase_percent || '0%'}`).join('\n');
+
+          const systemPrompt = "Eres el Asistente Experto de Tendencias Colombia (corte 13 de Noviembre 2026). Tienes memoria de los últimos 5 mensajes intercambiados para responder preguntas de seguimiento. REGLA CRÍTICA: 'Las respuestas largas NO suman: deben ser CONCRETAS'. Cero rodeos ni saludos extensos. Muestra: 1) Título breve con categoría, 2) '🚀 Top 5 en Aumento (Breakout / Crecimiento):' con 5 términos y su incremento, 3) '📊 Top 5 en Volumen (Mayor Interés):' con 5 términos e interés /100, 4) '💡 Conclusión Clave:' en 1 o 2 líneas directas.";
+          
+          const memoryContext = chatMemory.length > 1 
+            ? "HISTORIAL RECIENTE (MEMORIA):\n" + chatMemory.slice(-5, -1).map(m => (m.role === 'user' ? 'Usuario' : 'Asistente') + ": " + m.content).join("\n\n") + "\n\n"
+            : "";
+
+          const prompt = `${memoryContext}Contexto de tendencias en Colombia (últimos 30 días, corte 13 de Noviembre 2026):\n${sample}\n\nPregunta actual: ${text}`;
+
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${GEMINI_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemPrompt}\n\n${prompt}` }] }]
+            })
+          });
+
+          if (!res.ok) throw new Error("API call error");
+          const data = await res.json();
+          reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+        } catch (err) {
+          reply = runSemanticSearch(text);
+        }
+
+        const finalReply = reply || runSemanticSearch(text);
+        removeLoadingBubble(loadId);
+        appendChatMessage('bot', finalReply);
+
+        chatMemory.push({ role: 'assistant', content: finalReply });
+        if (chatMemory.length > 10) chatMemory = chatMemory.slice(-10);
+      } catch (err) {
+        const fallbackReply = runSemanticSearch(text);
+        removeLoadingBubble(loadId);
+        appendChatMessage('bot', fallbackReply);
+
+        chatMemory.push({ role: 'assistant', content: fallbackReply });
+        if (chatMemory.length > 10) chatMemory = chatMemory.slice(-10);
+      }
+    }
+
+    function dedupeTop(list, count) {
+      const res = [];
+      const seen = new Set();
+      for (const item of list) {
+        const key = (item.query || '').trim().toLowerCase();
+        if (key && !seen.has(key)) {
+          seen.add(key);
+          res.push(item);
+        }
+        if (res.length >= count) break;
+      }
+      return res;
+    }
+
+    function getRelevantQueries(q) {
+      const qL = q.toLowerCase();
+      let matched = [];
+
+      const isHeadphones = qL.includes('auricular') || qL.includes('audifono') || qL.includes('audífono') || qL.includes('airpod') || qL.includes('diadema');
+      const isAudioGeneral = qL.includes('audio') || qL.includes('sonido') || qL.includes('parlante') || qL.includes('bafle') || qL.includes('jbl') || qL.includes('bose');
+
+      if (isHeadphones) {
+        const hMatch = masterData.filter(t => t.query && /auricular|audifono|audífono|airpod|diadema/i.test(t.query));
+        matched = hMatch.length >= 5 ? hMatch : masterData.filter(t => t.carpeta_origen === 'audio y sonido');
+      } else if (isAudioGeneral) {
+        matched = masterData.filter(t => t.carpeta_origen === 'audio y sonido');
+      } else if (
+        qL.includes('celular') || qL.includes('smartphone') || qL.includes('telefono') || 
+        qL.includes('teléfono') || qL.includes('xiaomi') || qL.includes('redmi') || 
+        qL.includes('motorola') || qL.includes('samsung') || qL.includes('iphone') || 
+        qL.includes('infinix') || qL.includes('poco')
+      ) {
+        matched = masterData.filter(t => t.carpeta_origen === 'celulares' || t.f2_codigo === 'F1901');
+      } else if (qL.includes('tablet') || qL.includes('ipad')) {
+        matched = masterData.filter(t => t.carpeta_origen === 'tablet' || t.f2_codigo === 'F1902');
+      } else if (qL.includes('tv') || qL.includes('televisor') || qL.includes('pantalla') || qL.includes('oled') || qL.includes('smart tv')) {
+        matched = masterData.filter(t => t.carpeta_origen === 'televisores' || t.f2_codigo === 'F1904');
+      } else if (qL.includes('reloj') || qL.includes('smartwatch') || qL.includes('apple watch') || qL.includes('garmin')) {
+        matched = masterData.filter(t => t.carpeta_origen === 'reloj inteligente' || t.f2_codigo === 'F1905');
+      } else if (qL.includes('drone') || qL.includes('dji')) {
+        matched = masterData.filter(t => t.carpeta_origen === 'drone' || t.f2_codigo === 'F1906');
+      } else if (
+        qL.includes('calzado deportivo') || qL.includes('zapato deportivo') || 
+        qL.includes('zapatos deportivos') || qL.includes('tenis') || 
+        qL.includes('zapatilla') || qL.includes('sneaker') || 
+        qL.includes('running') || qL.includes('guayos') || 
+        qL.includes('nike') || qL.includes('adidas') || qL.includes('skechers')
+      ) {
+        matched = masterData.filter(t => t.carpeta_origen === 'tenis y zapatillas' || (t.query && /running|trail|futbol|guayos|baloncesto|ciclismo|tenis|zapatilla|skechers/i.test(t.query)));
+      } else if (qL.includes('calzado') || qL.includes('zapato') || qL.includes('bota') || qL.includes('sandalia')) {
+        matched = masterData.filter(t => t.f1_codigo === 'F18' || t.carpeta_origen === 'calzado');
+      } else if (qL.includes('electro') || qL.includes('nevera') || qL.includes('lavadora') || qL.includes('freidora') || qL.includes('air fryer') || qL.includes('airfryer') || qL.includes('microondas')) {
+        matched = masterData.filter(t => t.f1_codigo === 'F14' || (t.carpeta_origen && t.carpeta_origen.includes('Electrodomésticos')));
+      } else if (qL.includes('mascota') || qL.includes('perro') || qL.includes('gato') || qL.includes('purina') || qL.includes('concentrado')) {
+        matched = masterData.filter(t => t.f1_codigo === 'F06' || (t.carpeta_origen && t.carpeta_origen.includes('mascotas')));
+      } else if (qL.includes('mueble') || qL.includes('sofa') || qL.includes('sofá') || qL.includes('comedor') || qL.includes('cama') || qL.includes('colchon') || qL.includes('closet')) {
+        matched = masterData.filter(t => t.f1_codigo === 'F35' || (t.carpeta_origen && t.carpeta_origen.includes('Muebles')));
+      } else if (qL.includes('black friday') || qL.includes('viernes negro') || qL.includes('evento') || qL.includes('oferta') || qL.includes('descuento')) {
+        matched = masterData.filter(t => t.f1_codigo === 'F00' || (t.carpeta_origen && t.carpeta_origen.includes('black')));
+      } else {
+        const words = qL.replace(/[^\w\sáéíóúüñ]/gi, '').split(/\s+/).filter(w => w.length > 3 && !['para', 'como', 'donde', 'cual', 'cuales', 'sobre', 'tendencia', 'buscar', 'dame'].includes(w));
+        if (words.length > 0) {
+          matched = masterData.filter(t => t.query && words.some(w => t.query.toLowerCase().includes(w)));
+        } else {
+          matched = currentFiltered.length > 0 ? currentFiltered : masterData;
+        }
+      }
+
+      return matched.length > 0 ? matched : masterData;
+    }
+
+    function runSemanticSearch(q) {
+      const qL = q.toLowerCase();
+      let categoryName = "Tendencias Generales";
+      if (qL.includes('auricular') || qL.includes('audifono') || qL.includes('audífono') || qL.includes('airpod')) categoryName = "Auriculares y Audífonos";
+      else if (qL.includes('audio') || qL.includes('sonido') || qL.includes('parlante') || qL.includes('bafle')) categoryName = "Audio y Sonido";
+      else if (qL.includes('celular') || qL.includes('smartphone') || qL.includes('telefono')) categoryName = "Celulares y Smartphones";
+      else if (qL.includes('tablet') || qL.includes('ipad')) categoryName = "Tablets";
+      else if (qL.includes('tv') || qL.includes('televisor') || qL.includes('pantalla')) categoryName = "Televisores";
+      else if (qL.includes('reloj') || qL.includes('smartwatch')) categoryName = "Relojes Inteligentes";
+      else if (qL.includes('calzado deportivo') || qL.includes('zapato deportivo') || qL.includes('tenis') || qL.includes('zapatilla') || qL.includes('running') || qL.includes('guayos')) categoryName = "Calzado Deportivo y Tenis";
+      else if (qL.includes('calzado') || qL.includes('zapato')) categoryName = "Calzado General";
+      else if (qL.includes('electro') || qL.includes('nevera') || qL.includes('freidora')) categoryName = "Electrodomésticos";
+      else if (qL.includes('mascota') || qL.includes('perro') || qL.includes('gato')) categoryName = "Cuidado de Mascotas";
+      else if (qL.includes('mueble') || qL.includes('sofa') || qL.includes('cama')) categoryName = "Muebles y Hogar";
+      else if (qL.includes('black') || qL.includes('evento')) categoryName = "Black Friday / Eventos";
+
+      const matched = getRelevantQueries(q);
+      const risingCandidates = matched.filter(t => t.is_breakout || t.tipo_busqueda === 'rising');
+      const topVolumeCandidates = [...matched].sort((a,b) => (b.search_interest||0) - (a.search_interest||0));
+
+      const top5Aumento = dedupeTop(risingCandidates, 5);
+      const top5Volumen = dedupeTop(topVolumeCandidates, 5);
+
+      let out = `📌 <strong>Tendencias en ${categoryName}</strong> <em>(Colombia | Corte: 13 Nov 2026)</em><br><br>`;
+      out += `🚀 <strong>Top 5 en Aumento (Breakout / Crecimiento):</strong><br>`;
+      if (top5Aumento.length > 0) {
+        top5Aumento.forEach((r, idx) => {
+          const inc = r.increase_percent || (r.is_breakout ? 'Breakout (+5000%)' : 'En alza');
+          out += `${idx + 1}. <strong>${r.query}</strong> — ${inc}<br>`;
+        });
+      } else {
+        out += `&bull; No se registraron términos con aumento súbito en este criterio.<br>`;
+      }
+
+      out += `<br>📊 <strong>Top 5 en Volumen (Mayor Interés):</strong><br>`;
+      if (top5Volumen.length > 0) {
+        top5Volumen.forEach((r, idx) => {
+          out += `${idx + 1}. <strong>${r.query}</strong> — Interés ${r.search_interest}/100<br>`;
+        });
+      } else {
+        out += `&bull; No se encontraron registros de volumen para este criterio.<br>`;
+      }
+
+      out += `<br>💡 <strong>Conclusión Clave:</strong> Demanda focalizada para la temporada comercial. Asegurar inventario de los términos clave y pautar en términos breakout emergentes.`;
+      return out;
+    }
+
+    function appendChatMessage(role, text) {
+      const box = document.getElementById('chatMsgArea');
+      const div = document.createElement('div');
+      div.className = `msg-bubble ${role === 'user' ? 'msg-user' : 'msg-bot'}`;
+      div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function appendLoadingBubble() {
+      const box = document.getElementById('chatMsgArea');
+      const id = 'load_' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = 'msg-bubble msg-bot';
+      div.innerHTML = '<em>Consultando tendencias de Falabella y Gemini AI...</em>';
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return id;
+    }
+
+    function removeLoadingBubble(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+  </script>
+</body>
+</html>
