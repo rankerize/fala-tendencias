@@ -567,6 +567,50 @@
       letter-spacing: 0.02em;
     }
 
+    /* BADGES F1, F2 Y MARCA EN TABLA */
+    .f1-badge-cell, .f2-badge-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .f1-pill-code, .f2-pill-code {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      color: #166534;
+      background: #f4fae6;
+      border: 1px solid #cde875;
+      padding: 1px 6px;
+      border-radius: 4px;
+      width: fit-content;
+      letter-spacing: 0.03em;
+    }
+    .f2-pill-code {
+      color: #0369a1;
+      background: #f0f9ff;
+      border-color: #bae6fd;
+    }
+    .f1-pill-name, .f2-pill-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-hero);
+      line-height: 1.25;
+      white-space: normal;
+    }
+    .brand-table-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 3px 9px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
     .term-meta-breadcrumb {
       display: flex;
       align-items: center;
@@ -952,8 +996,11 @@
           <button id="btnResetFilters" class="btn-ghost" title="Limpiar todos los filtros">
             Limpiar
           </button>
-          <button id="btnExportCSV" class="btn-csv" title="Descargar términos en CSV">
-            Exportar CSV
+          <button id="btnExportCSV" class="btn-csv" title="Descargar términos actualmente filtrados con todas las columnas completas">
+            📥 Descargar Vista (<span id="csvCountBadge">0</span>)
+          </button>
+          <button id="btnExportAllCSV" class="btn-ghost" style="border: 1px solid var(--border-color); font-weight:700; color:var(--text-hero); background:#ffffff;" title="Descargar la base de datos completa (8,377 búsquedas) con todas sus columnas">
+            📦 Descargar Base Completa
           </button>
         </div>
 
@@ -1001,11 +1048,13 @@
         <table>
           <thead>
             <tr>
-              <th style="width: 50px; text-align: center;">#</th>
-              <th style="min-width: 380px;">Término de Búsqueda</th>
-              <th style="width: 200px;">Dinámica de Crecimiento</th>
-              <th style="width: 140px;">Interés</th>
-              <th style="width: 240px;">Categoría y Ruta</th>
+              <th style="width: 45px; text-align: center;">#</th>
+              <th style="width: 170px;">F1 Categoría</th>
+              <th style="width: 170px;">F2 Subcategoría</th>
+              <th style="min-width: 320px;">Término de Búsqueda</th>
+              <th style="width: 130px;">Marca</th>
+              <th style="width: 180px;">Dinámica de Crecimiento</th>
+              <th style="width: 120px;">Interés</th>
             </tr>
           </thead>
           <tbody id="trendsTableBody">
@@ -1129,7 +1178,43 @@
       { id: 'challenger', label: 'Challenger', regex: /\bchallenger\b/i },
       { id: 'jbl', label: 'JBL', regex: /\bjbl\b/i },
       { id: 'tcl', label: 'TCL', regex: /\btcl\b/i },
-      { id: 'hisense', label: 'Hisense', regex: /\bhisense\b/i }
+      { id: 'hisense', label: 'Hisense', regex: /\bhisense\b/i },
+      { id: 'mabe', label: 'Mabe', regex: /\bmabe\b/i },
+      { id: 'haceb', label: 'Haceb', regex: /\bhaceb\b/i },
+      { id: 'whirlpool', label: 'Whirlpool', regex: /\bwhirlpool\b/i },
+      { id: 'lenovo', label: 'Lenovo', regex: /\blenovo\b/i },
+      { id: 'asus', label: 'Asus', regex: /\basus\b/i },
+      { id: 'hp', label: 'HP', regex: /\bhp\b/i },
+      { id: 'dell', label: 'Dell', regex: /\bdell\b/i },
+      { id: 'oppo', label: 'Oppo', regex: /\boppo\b/i },
+      { id: 'vivo', label: 'Vivo', regex: /\bvivo\b/i },
+      { id: 'realme', label: 'Realme', regex: /\brealme\b/i },
+      { id: 'bose', label: 'Bose', regex: /\bbose\b/i },
+      { id: 'garmin', label: 'Garmin', regex: /\bgarmin\b/i },
+      { id: 'crocs', label: 'Crocs', regex: /\bcrocs\b/i },
+      { id: 'vans', label: 'Vans', regex: /\bvans\b/i },
+      { id: 'fila', label: 'Fila', regex: /\bfila\b/i },
+      { id: 'under armour', label: 'Under Armour', regex: /\b(under armour|underarmour)\b/i },
+      { id: 'asics', label: 'Asics', regex: /\basics\b/i },
+      { id: 'reebok', label: 'Reebok', regex: /\breebok\b/i },
+      { id: 'columbia', label: 'Columbia', regex: /\bcolumbia\b/i },
+      { id: 'profit', label: 'Profit', regex: /\bprofit\b/i },
+      { id: 'shimano', label: 'Shimano', regex: /\bshimano\b/i },
+      { id: 'specialized', label: 'Specialized', regex: /\bspecialized\b/i },
+      { id: 'trek', label: 'Trek', regex: /\btrek\b/i },
+      { id: 'scott', label: 'Scott', regex: /\bscott\b/i },
+      { id: 'venzo', label: 'Venzo', regex: /\bvenzo\b/i },
+      { id: 'rimax', label: 'Rimax', regex: /\brimax\b/i },
+      { id: 'singer', label: 'Singer', regex: /\bsinger\b/i },
+      { id: 'brother', label: 'Brother', regex: /\bbrother\b/i },
+      { id: 'shein', label: 'Shein', regex: /\bshein\b/i },
+      { id: 'zara', label: 'Zara', regex: /\bzara\b/i },
+      { id: 'purina', label: 'Purina / Cat Chow', regex: /\b(purina|cat chow|dog chow|pro plan)\b/i },
+      { id: 'whiskas', label: 'Whiskas', regex: /\bwhiskas\b/i },
+      { id: 'hills', label: 'Hill\'s', regex: /\b(hills|hill's)\b/i },
+      { id: 'royal canin', label: 'Royal Canin', regex: /\broyal canin\b/i },
+      { id: 'agility', label: 'Agility Gold', regex: /\bagility( gold)?\b/i },
+      { id: 'chunky', label: 'Chunky', regex: /\bchunky\b/i }
     ];
 
     document.addEventListener('DOMContentLoaded', async () => {
@@ -1163,6 +1248,10 @@
 
         masterData = all;
         document.getElementById('dbStatusLabel').innerText = `${masterData.length.toLocaleString()} términos activos`;
+        const exportAllBtn = document.getElementById('btnExportAllCSV');
+        if (exportAllBtn) {
+          exportAllBtn.innerText = `📦 Descargar Base Completa (${masterData.length.toLocaleString()})`;
+        }
         
         populateF1Selector();
         populateProductSelector();
@@ -1418,9 +1507,11 @@
       document.getElementById('tabCountTop').innerText = contextBase.filter(i => i.tipo_busqueda === 'top').length.toLocaleString();
 
       document.getElementById('statsSummaryText').innerHTML = `Mostrando <strong>${currentFiltered.length.toLocaleString()}</strong> términos coincidentes`;
+      const csvBadge = document.getElementById('csvCountBadge');
+      if (csvBadge) csvBadge.innerText = currentFiltered.length.toLocaleString();
     }
 
-    // RENDERIZADO DE LA TABLA: LOS TÉRMINOS COMO HÉROES
+    // RENDERIZADO DE LA TABLA: F1, F2, TÉRMINO, MARCA, DINÁMICA E INTERÉS
     function renderTableRows() {
       const tbody = document.getElementById('trendsTableBody');
       tbody.innerHTML = '';
@@ -1439,7 +1530,7 @@
       document.getElementById('btnPageNext').disabled = currentPage >= totalPages;
 
       if (pageItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 50px 20px; color: var(--text-muted); font-weight:600;">No se encontraron términos que coincidan con los criterios seleccionados.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 50px 20px; color: var(--text-muted); font-weight:600;">No se encontraron términos que coincidan con los criterios seleccionados.</td></tr>`;
         return;
       }
 
@@ -1449,17 +1540,29 @@
         const interestVal = item.search_interest || 0;
         const brand = detectBrand(item.query);
         const f1Name = F1_LABELS[item.f1_codigo] || item.f1_codigo || '-';
-        const cleanProd = item.carpeta_origen ? (item.carpeta_origen.charAt(0).toUpperCase() + item.carpeta_origen.slice(1)) : '-';
+        const cleanProd = item.carpeta_origen ? (item.carpeta_origen.charAt(0).toUpperCase() + item.carpeta_origen.slice(1)) : 'General';
+        const f2Name = item.f2_codigo && F2_LABELS[item.f2_codigo] ? F2_LABELS[item.f2_codigo] : cleanProd;
         const rowNum = start + idx + 1;
         const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=CO&q=${encodeURIComponent(item.query)}`;
 
         tr.innerHTML = `
           <td style="text-align: center; color: var(--text-faint); font-weight: 700; font-size: 11px;">${rowNum}</td>
           <td>
+            <div class="f1-badge-cell">
+              <span class="f1-pill-code">${escapeHTML(item.f1_codigo || '-')}</span>
+              <span class="f1-pill-name">${escapeHTML(f1Name)}</span>
+            </div>
+          </td>
+          <td>
+            <div class="f2-badge-cell">
+              ${item.f2_codigo ? `<span class="f2-pill-code">${escapeHTML(item.f2_codigo)}</span>` : ''}
+              <span class="f2-pill-name">${escapeHTML(f2Name)}</span>
+            </div>
+          </td>
+          <td>
             <div class="term-cell">
               <div class="term-headline-row">
                 <span class="term-query-title">${escapeHTML(item.query)}</span>
-                ${brand ? `<span class="brand-mini-badge">${brand}</span>` : ''}
                 <div class="row-actions-group">
                   <button class="btn-table-action" onclick="copyTerm(this, '${escapeJS(item.query)}')">
                     📋 Copiar
@@ -1469,12 +1572,10 @@
                   </a>
                 </div>
               </div>
-              <div class="term-meta-breadcrumb">
-                <span>${f1Name}</span>
-                <span class="sep">›</span>
-                <span>${cleanProd}</span>
-              </div>
             </div>
+          </td>
+          <td>
+            ${brand ? `<span class="brand-table-badge">🏷️ ${escapeHTML(brand)}</span>` : `<span style="color:var(--text-faint); font-size:13px; font-weight:600;">—</span>`}
           </td>
           <td>
             ${isB ? '<span class="badge-breakout-clean">🔥 Breakout (+5,000%)</span>' : 
@@ -1487,14 +1588,6 @@
               <div class="interest-track" title="Interés: ${interestVal}/100">
                 <div class="interest-fill" style="width: ${interestVal}%;"></div>
               </div>
-            </div>
-          </td>
-          <td>
-            <div style="font-size: 12px; font-weight: 600; color: var(--text-hero);">
-              ${item.f1_codigo || '-'} &bull; ${cleanProd}
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted);">
-              ${item.f2_codigo ? (F2_LABELS[item.f2_codigo] || item.f2_codigo) : 'Línea directa'}
             </div>
           </td>
         `;
@@ -1607,20 +1700,55 @@
         renderTableRows();
       });
 
-      // Exportar CSV
-      document.getElementById('btnExportCSV').addEventListener('click', () => {
-        if (currentFiltered.length === 0) return alert("No hay datos para exportar.");
-        let csv = "Query,Marca_Detectada,F1_Codigo,F1_Nombre,F2_Codigo,Producto,Search_Interest,Increase_Percent,Is_Breakout,Tipo_Busqueda\n";
-        currentFiltered.forEach(q => {
-          const brand = detectBrand(q.query) || '';
-          const f1Name = F1_LABELS[q.f1_codigo] || '';
-          csv += `"${(q.query||'').replace(/"/g, '""')}","${brand}","${q.f1_codigo||''}","${f1Name}","${q.f2_codigo||''}","${q.carpeta_origen||''}",${q.search_interest||0},"${q.increase_percent||''}",${q.is_breakout},"${q.tipo_busqueda}"\n`;
+      // Función modular de Exportación CSV Completa (con BOM para compatibilidad Excel)
+      function exportDatasetToCSV(dataset, filename) {
+        if (!dataset || dataset.length === 0) return alert("No hay datos para exportar.");
+
+        let csv = "Numero,Query,Marca_Detectada,F1_Codigo,F1_Nombre,F2_Codigo,F2_Nombre,Producto_Linea,Dinamica_Crecimiento,Search_Interest,Increase_Percent,Is_Breakout,Tipo_Busqueda,Google_Trends_URL\n";
+
+        dataset.forEach((q, idx) => {
+          const brand = detectBrand(q.query) || 'Sin marca';
+          const f1Name = F1_LABELS[q.f1_codigo] || q.f1_codigo || '';
+          const f2Name = (q.f2_codigo && F2_LABELS[q.f2_codigo]) ? F2_LABELS[q.f2_codigo] : (q.carpeta_origen || '');
+          const prod = q.carpeta_origen || '';
+          const dinamica = q.is_breakout ? 'Breakout (+5000%)' : (q.increase_percent || (q.tipo_busqueda === 'top' ? 'Top Búsqueda' : 'Rising'));
+          const trendsUrl = `https://trends.google.com/trends/explore?geo=CO&q=${encodeURIComponent(q.query || '')}`;
+
+          csv += `${idx + 1},` +
+                 `"${(q.query || '').replace(/"/g, '""')}",` +
+                 `"${brand.replace(/"/g, '""')}",` +
+                 `"${(q.f1_codigo || '').replace(/"/g, '""')}",` +
+                 `"${f1Name.replace(/"/g, '""')}",` +
+                 `"${(q.f2_codigo || '').replace(/"/g, '""')}",` +
+                 `"${f2Name.replace(/"/g, '""')}",` +
+                 `"${prod.replace(/"/g, '""')}",` +
+                 `"${dinamica.replace(/"/g, '""')}",` +
+                 `${q.search_interest || 0},` +
+                 `"${(q.increase_percent || '').replace(/"/g, '""')}",` +
+                 `${q.is_breakout ? 'TRUE' : 'FALSE'},` +
+                 `"${(q.tipo_busqueda || '').replace(/"/g, '""')}",` +
+                 `"${trendsUrl}"\n`;
         });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+
+        const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `falabella_tendencias_${new Date().toISOString().slice(0,10)}.csv`;
+        link.download = filename;
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+      }
+
+      // Exportar Vista Filtrada (con todas las columnas completas)
+      document.getElementById('btnExportCSV').addEventListener('click', () => {
+        const dateStr = new Date().toISOString().slice(0, 10);
+        exportDatasetToCSV(currentFiltered, `falabella_tendencias_filtradas_${dateStr}.csv`);
+      });
+
+      // Exportar Base de Datos Completa (todas las 8,377 búsquedas con todas sus columnas completas)
+      document.getElementById('btnExportAllCSV').addEventListener('click', () => {
+        const dateStr = new Date().toISOString().slice(0, 10);
+        exportDatasetToCSV(masterData, `falabella_tendencias_base_completa_${masterData.length}_terminos_${dateStr}.csv`);
       });
 
       // Toggle Chat
